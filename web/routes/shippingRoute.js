@@ -4,6 +4,7 @@ import {
 	getByIdAndDuplicate,
 	getByIdShipping,
 	getByShopNameShipping,
+	getIsActive,
 	getShipping,
 	isActive,
 	updateShipping,
@@ -21,5 +22,6 @@ router.delete('/deleteShipping/:id', deleteShipping);
 router.put('/updateShipping/:id', updateShipping);
 router.put('/getByIdAndDuplicate/:id', getByIdAndDuplicate);
 router.put('/isActive/:id', isActive);
+router.get('/getIsActive', getIsActive);
 
 export default router;

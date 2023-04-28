@@ -508,6 +508,13 @@ export const isActive = async (req, res) => {
 		const shop_name = req.headers['x-shop-name'];
 		const id = req.params.id;
 
+		const shipping_check = await Shipping.findOne({
+			where: {
+				shop_name: shop_name,
+				id: id,
+			},
+		});
+
 		// Check if the data exists
 		const shipping = await Shipping.findAll({
 			where: {
@@ -540,7 +547,12 @@ export const isActive = async (req, res) => {
 		}
 
 		if (shop_name === updateIsActive.shop_name) {
-			await updateIsActive.update({ is_activate: 1 });
+			console.log('==========', shipping_check.is_activate);
+			if (shipping_check.is_activate === 1) {
+				await updateIsActive.update({ is_activate: 0 });
+			} else {
+				await updateIsActive.update({ is_activate: 1 });
+			}
 
 			return res.status(200).json({
 				success: 1,
@@ -664,6 +676,33 @@ export const getByIdAndDuplicate = async (req, res) => {
 			});
 		}
 	} catch {
+		return res.status(400).json({
+			success: 0,
+			message: 'Error in getting data.',
+			error: 1,
+			data: [],
+		});
+	}
+};
+
+// get isActive Shipping
+export const getIsActive = async (req, res) => {
+	const shop_name = req.headers['x-shop-name'];
+
+	try {
+		const getIsActive = await Shipping.findOne({
+			where: {
+				shop_name: shop_name,
+				is_activate: 1,
+			},
+		});
+		return res.status(200).json({
+			success: 1,
+			error: 0,
+			message: `Record found successfully.`,
+			data: getIsActive,
+		});
+	} catch (error) {
 		return res.status(400).json({
 			success: 0,
 			message: 'Error in getting data.',

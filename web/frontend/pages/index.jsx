@@ -70,6 +70,7 @@ function index() {
   const [showPatternImage, setshowPatternImage] = useState(0);
   const [showFittedImage, setshowFittedImage] = useState(0);
   const [showData, setShowData] = useState([]);
+  const [products, setProducts] = useState([]);
 
 
 
@@ -344,6 +345,7 @@ function index() {
       top: 550,
       behavior: "smooth",
     })
+    setId(0)
   }
 
 
@@ -477,21 +479,28 @@ function index() {
 
 
   const [DisplayPosition, setDisplayPosition] = useState('hidden');
-  var handleSelectDisplayPosition = useCallback(
-    function (value) {
-      console.log('_____>', value);
-      return setDisplayPosition(value);
-    },
-    []);
+  // var handleSelectDisplayPosition = useCallback(
+  //   function (value) {
+  //     console.log('_____>', value);
+  //     return setDisplayPosition(value);
+  //   },
+  //   []);
+
+  const handleSelectDisplayPosition = (event) => {
+    setDisplayPosition(event.target.value)
+  }
 
 
   const [displayonpage, setDisplayonPage] = useState('all');
-  var handleDisplayonPage = useCallback(
-    function (value) {
-      console.log('_____>', value);
-      return setDisplayonPage(value);
-    },
-    []);
+  // var handleDisplayonPage = useCallback(
+  //   function (value) {
+  //     console.log('_____>', value);
+  //     return setDisplayonPage(value);
+  //   },
+  //   []);
+  const handleDisplayOnPage = (event) => {
+    setDisplayonPage(event.target.value);
+  }
 
   const [excludepage, setExcludePage] = useState('notexclude ');
   var handleExcludePage = useCallback(
@@ -500,14 +509,20 @@ function index() {
       return setExcludePage(value);
     },
     []);
+  // const handleExcludePage = (event) => {
+  //   setExcludePage(event.target.value);
+  // }
 
   const [devicetarget, setDeviceTarget] = useState('displayboth ');
-  var handleDeviceTarget = useCallback(
-    function (value) {
-      console.log('_____>', value);
-      return setDeviceTarget(value);
-    },
-    []);
+  // var handleDeviceTarget = useCallback(
+  //   function (value) {
+  //     console.log('_____>', value);
+  //     return setDeviceTarget(value);
+  //   },
+  //   []);
+  const handleDeviceTarget = (event) => {
+    setDeviceTarget(event.target.value)
+  }
 
   const [producttargeting, setProductTargeting] = useState('excludenonphysical ');
   var handleProductTargeting = useCallback(
@@ -548,7 +563,7 @@ function index() {
   // const color2 = "#B408A4";
   // style = {{ background: `linear-gradient(to bottom,  ${ color1 } 0%,${ color2 } 100%)` }}
   // const [is_activate, setis_activate] = useState(1);
-  const [products, setProducts] = useState([]);
+
 
 
   const handleShippingFee = (e) => {
@@ -574,9 +589,10 @@ function index() {
     []
   )
 
+
   const [displayexcludePage, setDisplayExcludePage] = useState("display_exclude_all_page");
   const handleChangeRadioBtnExclude = useCallback(
-    (_, newValue) => setValue(newValue),
+    (_, newValue1) => setValue(newValue1),
     (event) => setDisplayExcludePage(event.target.value),
     []
   )
@@ -629,20 +645,10 @@ function index() {
 
   console.log("shopname=-===", shopName);
 
-  // get all currency
-  useEffect(() => {
-    axios.get('/api/getCurrency').then((response) => {
-      console.log("getCurrency----->------>", response.data.DemoData
-      );
-      setCurrencyData(response.data.DemoData);
 
-    })
-    getData();
-    fetchData();
-  }, [])
 
   // fetching data
-  const fetchData = async () => {
+  const fetchData = () => {
     try {
       axios.get('/api/getByShopNameShipping', {
         headers: {
@@ -723,7 +729,6 @@ function index() {
           pauseOnHover: true,
           type: "success"
         });
-        // alert("You have successfully added")
       }
 
     }).catch((error) => {
@@ -744,7 +749,7 @@ function index() {
     }
     );
 
-    getData();
+    // //getData();
     fetchData();
     setShowContent(0);
     setBasicTemplate(0);
@@ -807,6 +812,9 @@ function index() {
       .catch((error) => {
         console.log(error)
       });
+
+    setShowContent(1);
+    setBasicTemplate(1);
   }
 
   // edit shipping data
@@ -899,21 +907,21 @@ function index() {
     }
     );
 
-    getData();
+    // //getData();
     fetchData();
     setShowContent(0);
     setBasicTemplate(0);
     setAfterBasicData(0);
   }
 
-  // get shipping
-  function getData() {
-    axios.get('/api/getShipping')
-      .then(res => {
-        console.log("GETSHIPPINGDATA---------->----------->", res.data);
-        setShowData(res.data)
-      });
-  }
+  // get all shipping
+  // function //getData() {
+  //   axios.get('/api/getShipping')
+  //     .then(res => {
+  //       console.log("GETSHIPPINGDATA---------->----------->", res.data);
+  //       setShowData(res.data)
+  //     });
+  // }
 
   // isActive 
   const handleActivate = (id, shop_name) => {
@@ -941,7 +949,7 @@ function index() {
           });
         }
 
-        // getData();
+        // //getData();
         fetchData();
 
 
@@ -991,8 +999,9 @@ function index() {
           });
         }
 
-        getData();
+        //getData();
         fetchData();
+        setActive(!active), [active]
       })
       .catch((error) => {
         console.log(error)
@@ -1036,7 +1045,7 @@ function index() {
             type: "success"
           });
 
-          getData();
+          //getData();
           fetchData();
 
         } else {
@@ -1098,9 +1107,17 @@ function index() {
     })
   // : 'Create new bar'})
 
+  // get all currency
+  useEffect(() => {
+    axios.get('/api/getCurrency').then((response) => {
+      console.log("getCurrency----->------>", response.data.DemoData
+      );
+      setCurrencyData(response.data.DemoData);
 
-
-
+    })
+    //getData();
+    fetchData();
+  }, [])
 
   return (
     <>
@@ -1168,60 +1185,67 @@ function index() {
               </TextContainer>
             </Card>
 
-            <MediaCard
-              title="Create your 1st Free Shipping Bar?"
-              primaryAction={{
-                content: 'Create New Bar',
-                onAction: () => { handleOpenModel }
-              }}
-              description={`The short tutorial video explains how to create the free shipping bar.`}
-              popoverActions={[{ content: 'Dismiss', onAction: () => { handleClear } }]}
-            >
-              <VideoThumbnail
-                videoLength={80}
-                thumbnailUrl={maxresdefault}
-                onClick={() => console.log('clicked')}
-              />
-            </MediaCard>
+            {products && products.length > 0 ?
+              <>
+                <Card sectioned>
+                  <Card.Section>
+                    <Stack>
+                      <Stack.Item fill>
+                        <p style={{ fontWeight: 'bold', fontSize: '15px' }}>Free Shipping Bar (FSB) Dashboard</p>
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button>Translate Bar</Button>
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button primary onClick={handleOpenModel}>Create New Bar</Button>
+                      </Stack.Item>
+                    </Stack>
 
-            <Card sectioned>
-              <Card.Section>
-                <Stack>
-                  <Stack.Item fill>
-                    <p style={{ fontWeight: 'bold', fontSize: '15px' }}>Free Shipping Bar (FSB) Dashboard</p>
-                  </Stack.Item>
-                  <Stack.Item>
-                    <Button>Translate Bar</Button>
-                  </Stack.Item>
-                  <Stack.Item>
-                    <Button primary onClick={handleOpenModel}>Create New Bar</Button>
-                  </Stack.Item>
-                </Stack>
+                    <DataTable
+                      columnContentTypes={['text', 'text', 'numeric', 'text', 'text']}
+                      headings={['Name', 'Geo Target', 'Excluded', 'Actions', 'Achievements']}
+                      rows={rows}
+                    />
 
-                <DataTable
-                  columnContentTypes={['text', 'text', 'numeric', 'text', 'text']}
-                  headings={['Name', 'Geo Target', 'Excluded', 'Actions', 'Achievements']}
-                  rows={rows}
-                />
+                    {/* <IndexTable
+                    resourceName={resourceName}
+                    itemCount={orders.length}
+                    headings={[
+                      { title: 'Name' },
+                      // { title: ' ' },
+                      { title: 'Geo Target', alignment: 'center' },
+                      { title: 'Excluded' },
+                      { title: 'Actions', alignment: 'center' },
+                      { title: 'Achievements' },
+                    ]}
+                    selectable={false}
+                  >
+                    {rowMarkup}
+                  </IndexTable> */}
+                  </Card.Section>
 
-                {/* <IndexTable
-                  resourceName={resourceName}
-                  itemCount={orders.length}
-                  headings={[
-                    { title: 'Name' },
-                    // { title: ' ' },
-                    { title: 'Geo Target', alignment: 'center' },
-                    { title: 'Excluded' },
-                    { title: 'Actions', alignment: 'center' },
-                    { title: 'Achievements' },
-                  ]}
-                  selectable={false}
+                </Card>
+              </>
+              :
+              <>
+                <MediaCard
+                  title="Create your 1st Free Shipping Bar?"
+                  primaryAction={{
+                    content: 'Create New Bar',
+                    onAction: () => { handleOpenModel() }
+                  }}
+                  description={`The short tutorial video explains how to create the free shipping bar.`}
+                  popoverActions={[{ content: 'Dismiss', onAction: (e) => { handleClear(e) } }]}
                 >
-                  {rowMarkup}
-                </IndexTable> */}
-              </Card.Section>
+                  <VideoThumbnail
+                    videoLength={80}
+                    thumbnailUrl={maxresdefault}
+                    onClick={() => console.log('clicked')}
+                  />
+                </MediaCard>
+              </>
+            }
 
-            </Card>
 
 
             {/* basictemplate and premiumtemplate */}
