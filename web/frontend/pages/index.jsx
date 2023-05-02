@@ -92,6 +92,8 @@ function index() {
   const [displayexcludePageUrl, setDisplayExcludePageUrl] = useState("url");
   const [displayexcludePageKeywords, setDisplayExcludePageKeywords] = useState("keyword");
   const [name, setName] = useState('My First Free Shipping Bar');
+  // const [excludepage, setExcludePage] = useState('notexclude ');
+  const [displayonpage, setDisplayonPage] = useState('all');
   const [gradientColors, setGradientColors] = useState({
     deg: '',
     color1: '',
@@ -551,8 +553,6 @@ function index() {
 
   console.log("shopname=-===", shopName);
 
-
-
   // fetching data
   const fetchData = () => {
     try {
@@ -997,7 +997,7 @@ function index() {
 
     })
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -1125,8 +1125,6 @@ function index() {
                 </MediaCard>
               </>
             }
-
-
 
             {/* basictemplate and premiumtemplate */}
             {basictemplate && basictemplate === 1 ?
