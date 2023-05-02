@@ -50,13 +50,11 @@ import tms_shopify from '../assets/tms-shopify-banner.jpg'
 import bie_shopify from '../assets/bie-shopify-banner.jpg'
 import bpe_shopify from '../assets/bpe-shopify-banner.jpg'
 import maxresdefault from '../assets/maxresdefault.jpg'
-
 import { ChevronDownMinor, LockMajor, PlayCircleMajor, NoteMinor } from '@shopify/polaris-icons';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { Toast } from '@shopify/polaris/build/ts/latest/src/components/Frame/components';
 
 
 
@@ -71,24 +69,15 @@ function index() {
   const [showFittedImage, setshowFittedImage] = useState(0);
   const [showData, setShowData] = useState([]);
   const [products, setProducts] = useState([]);
-
-
-
-
   const [exludegeotarget, setexludegeotarget] = useState("");
   const [geoLocationTarget, setgeoLocationTarget] = useState("");
   const [btnBG, setBtnBG] = useState('NoImage')
-
-
-  // const handleChange = useCallback(() => setActive(!active), [active]);
   const [backgroundColor, setBackgroundColor] = useState("#1E1E20");
   const [backgroundimage, setBackgroundImage] = useState('');
   const [backgroundOpacity, setBackgroundOpacity] = useState(1);
   const [textColor, setTextColor] = useState("#F2CA80");
   const [specialTextColor, setSpecialTextColor] = useState("#F2CA80");
   const [currencyData, setCurrencyData] = useState([]);
-  // const [curr, setCurr] = useState('');
-  // const [currencyPosition, setCurrencyPosition] = useState(0);
   const [selectedFontFamily, setSelectedFontFamily] = useState("sans");
   const [selectedFontSize, setSelectedFontSize] = useState(16);
   const [barPadding, setBarPadding] = useState(10);
@@ -110,7 +99,6 @@ function index() {
     color3: ''
   });
 
-
   const handleChangeName = useCallback(
     newValue => setName(newValue),
     [],
@@ -122,7 +110,6 @@ function index() {
     newValue => setFreeshippingGoal(newValue),
     [],
   );
-
 
   const [initialmessage, setInitialMessage] = useState('Free shipping for orders over');
 
@@ -159,19 +146,11 @@ function index() {
     [],
   );
 
-  // const handleSelectCurrency = useCallback(
-  //   value => setSelectcurrency(value),
-  //   setCurrencyData(currencyData),
-  //   [],
-  // );
 
   const handleSelectCurrency = (event) => {
     setSelectcurrency(event);
   }
 
-  // const handleTextColor = (event) => {
-  //   setTextColor(event.target.value)
-  // }
 
 
 
@@ -179,26 +158,6 @@ function index() {
     value => setSelectcurrency(value),
   )
 
-  // const Currency = [
-  //   { label: 'India Rupees – INR', value: 'INR' },
-  //   { label: 'United States Dollars – USD', value: 'USD' },
-  //   { label: 'United Kingdom Pounds – GBP', value: 'GBP' },
-  //   { label: 'Euro – EUR', value: 'EUR' },
-  //   { label: 'Canada Dollars – CAD', value: 'CAD' },
-  //   { label: 'Australia Dollars – AUD', value: 'AUD' },
-  //   { label: 'Afghanistan Afghanis – AFN', value: 'AFN' },
-  // ];
-
-  // const Currency = [
-  //   currencyData && currencyData.map(v => {
-  //     console.log("asdasdsad", v.name);
-  //     [
-  //       { label: `${ v.name } – ${ v.symbol }`, value: v.symbol }
-  //     ]
-  //   })
-  // ]
-
-  // console.log("currency--", Currency)
 
   const handleCurrencySymbolPosition = useCallback(
     value => setSelectCurrencySymbolPosition(value),
@@ -216,7 +175,6 @@ function index() {
     // console.log("changeGradientColor", deg, color1, color2, e.target.style.color);
 
     setTextColor(e.target.style.color)
-    // setSpecialTextColor(e.target.style.color)
 
     if (deg === null) {
       if (color2 === null) {
@@ -246,12 +204,7 @@ function index() {
         setBackgroundImage(`linear-gradient(${ deg }, ${ color1 }, ${ color2 }, ${ color3 })`);
       }
     }
-    // setGradientColors({ ...gradientColors, color2: color2 });
   }
-
-  // function rgbToHex(r, g, b) {
-  //   return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-  // }
 
   // handle basic template
   const handleBasicTemplate = (event) => {
@@ -264,9 +217,6 @@ function index() {
     setTextColor(event.target.style.color)
     setSpecialTextColor(event.target.style.color)
     setShowContent(1)
-    // setshowGradientColorImage(0)
-    // setshowPatternImage(0)
-    // setshowFittedImage(0)
     setCustomCss()
 
     console.log("handlebasictemplate---------------->", event.target.style.backgroundImage);
@@ -477,58 +427,6 @@ function index() {
   ];
 
 
-
-  // const [displayonpage, setDisplayonPage] = useState('all'); 
-  // var handleDisplayonPage = useCallback(
-  //   function (value) {
-  //     console.log('_____>', value);
-  //     return setDisplayonPage(value);
-  //   },
-  //   []);
-  // const handleDisplayOnPage = (event) => {
-  //   setDisplayonPage(event.target.value);
-  // }
-
-  // const [excludepage, setExcludePage] = useState('notexclude ');
-  // var handleExcludePage = useCallback(
-  //   function (value) {
-  //     console.log('_____>', value);
-  //     return setExcludePage(value);
-  //   },
-  //   []);
-  // const handleExcludePage = (event) => {
-  //   setExcludePage(event.target.value);
-  // }
-
-  // const [devicetarget, setDeviceTarget] = useState('displayboth ');
-  // var handleDeviceTarget = useCallback(
-  //   function (value) {
-  //     console.log('_____>', value);
-  //     return setDeviceTarget(value);
-  //   },
-  //   []);
-  // const handleDeviceTarget = (event) => {
-  //   setDeviceTarget(event.target.value)
-  // }
-
-  // const [producttargeting, setProductTargeting] = useState('excludenonphysical ');
-  // var handleProductTargeting = useCallback(
-  //   function (value) {
-  //     console.log('_____>', value);
-  //     return setProductTargeting(value);
-  //   },
-  //   []);
-
-  // const [shippingfee, setShippingFee] = useState('');
-
-  // const [customertargeting, setCustomerTargeting] = useState('customertag ');
-  // var handleCustomerTargeting = useCallback(
-  //   function (value) {
-  //     console.log('_____>', value);
-  //     return setCustomerTargeting(value);
-  //   },
-  //   []);
-
   const [displayschedule, setDisplaySchedule] = useState('alwaysdisplay ');
   var handleDisplaySchedule = useCallback(
     function (value) {
@@ -545,26 +443,6 @@ function index() {
     console.log('CSS_____>', event);
     setCustomCss(event);
   });
-
-  // const color1 = "#343336";
-  // const color2 = "#B408A4";
-  // style = {{ background: `linear-gradient(to bottom,  ${ color1 } 0%,${ color2 } 100%)` }}
-  // const [is_activate, setis_activate] = useState(1);
-
-
-
-  // const handleShippingFee = (e) => {
-  //   setShippingFee(e.target.value)
-  // }
-
-
-  // const [files, setFiles] = useState([]);
-
-  // const handleDropZoneDrop = useCallback(
-  //   (_dropFiles, acceptedFiles, _rejectedFiles) =>
-  //     setFiles((files) => [...files, ...acceptedFiles]),
-  //   [],
-  // );
 
   const [selectedshippingfee, setSelectedShippingFee] = useState(['']);
   const handleShippingFee = ((value) => setSelectedShippingFee(value), []);
@@ -1073,7 +951,6 @@ function index() {
         console.log(error)
       });
   }
-
 
   // rows
   const rows =
