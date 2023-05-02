@@ -478,7 +478,7 @@ function index() {
 
 
 
-  const [DisplayPosition, setDisplayPosition] = useState('hidden');
+  // const [DisplayPosition, setDisplayPosition] = useState('hidden');
   // var handleSelectDisplayPosition = useCallback(
   //   function (value) {
   //     console.log('_____>', value);
@@ -486,9 +486,9 @@ function index() {
   //   },
   //   []);
 
-  const handleSelectDisplayPosition = (event) => {
-    setDisplayPosition(event.target.value)
-  }
+  // const handleSelectDisplayPosition = (event) => {
+  //   setDisplayPosition(event.target.value)
+  // }
 
 
   const [displayonpage, setDisplayonPage] = useState('all');
@@ -513,34 +513,34 @@ function index() {
   //   setExcludePage(event.target.value);
   // }
 
-  const [devicetarget, setDeviceTarget] = useState('displayboth ');
+  // const [devicetarget, setDeviceTarget] = useState('displayboth ');
   // var handleDeviceTarget = useCallback(
   //   function (value) {
   //     console.log('_____>', value);
   //     return setDeviceTarget(value);
   //   },
   //   []);
-  const handleDeviceTarget = (event) => {
-    setDeviceTarget(event.target.value)
-  }
+  // const handleDeviceTarget = (event) => {
+  //   setDeviceTarget(event.target.value)
+  // }
 
-  const [producttargeting, setProductTargeting] = useState('excludenonphysical ');
-  var handleProductTargeting = useCallback(
-    function (value) {
-      console.log('_____>', value);
-      return setProductTargeting(value);
-    },
-    []);
+  // const [producttargeting, setProductTargeting] = useState('excludenonphysical ');
+  // var handleProductTargeting = useCallback(
+  //   function (value) {
+  //     console.log('_____>', value);
+  //     return setProductTargeting(value);
+  //   },
+  //   []);
 
-  const [shippingfee, setShippingFee] = useState('');
+  // const [shippingfee, setShippingFee] = useState('');
 
-  const [customertargeting, setCustomerTargeting] = useState('customertag ');
-  var handleCustomerTargeting = useCallback(
-    function (value) {
-      console.log('_____>', value);
-      return setCustomerTargeting(value);
-    },
-    []);
+  // const [customertargeting, setCustomerTargeting] = useState('customertag ');
+  // var handleCustomerTargeting = useCallback(
+  //   function (value) {
+  //     console.log('_____>', value);
+  //     return setCustomerTargeting(value);
+  //   },
+  //   []);
 
   const [displayschedule, setDisplaySchedule] = useState('alwaysdisplay ');
   var handleDisplaySchedule = useCallback(
@@ -566,20 +566,23 @@ function index() {
 
 
 
-  const handleShippingFee = (e) => {
-    setShippingFee(e.target.value)
-  }
+  // const handleShippingFee = (e) => {
+  //   setShippingFee(e.target.value)
+  // }
 
 
-  const [files, setFiles] = useState([]);
+  // const [files, setFiles] = useState([]);
 
-  const handleDropZoneDrop = useCallback(
-    (_dropFiles, acceptedFiles, _rejectedFiles) =>
-      setFiles((files) => [...files, ...acceptedFiles]),
-    [],
-  );
+  // const handleDropZoneDrop = useCallback(
+  //   (_dropFiles, acceptedFiles, _rejectedFiles) =>
+  //     setFiles((files) => [...files, ...acceptedFiles]),
+  //   [],
+  // );
 
-  // radiobtn
+  const [selectedshippingfee, setSelectedShippingFee] = useState(['']);
+  const handleShippingFee = ((value) => setSelectedShippingFee(value), []);
+
+  // radiobtn display page
   const [value, setValue] = useState('all');
   const [displayPage, setDisplayPage] = useState("display_all_page");
 
@@ -590,41 +593,79 @@ function index() {
   )
 
 
+  // radiobtn exclude page
+  const [value1, setValue1] = useState('excludepage');
   const [displayexcludePage, setDisplayExcludePage] = useState("display_exclude_all_page");
   const handleChangeRadioBtnExclude = useCallback(
-    (_, newValue1) => setValue(newValue1),
+    (_, newValue) => setValue1(newValue),
     (event) => setDisplayExcludePage(event.target.value),
     []
   )
 
-  const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-
-  const fileUpload = !files.length && <DropZone.FileUpload />;
-  const uploadedFiles = files.length > 0 && (
-    <div style={{ padding: '0' }}>
-      <Stack vertical>
-        {files.map((file, index) => (
-          <Stack alignment="center" key={index}>
-            <Thumbnail
-              size="small"
-              alt={file.name}
-              source={
-                validImageTypes.includes(file.type)
-                  ? window.URL.createObjectURL(file)
-                  : NoteMinor
-              }
-            />
-            <div>
-              {file.name}{' '}
-              <p variant="bodySm" as="p">
-                {file.size} bytes
-              </p>
-            </div>
-          </Stack>
-        ))}
-      </Stack>
-    </div>
+  // radiobtn Select a Display Position:
+  const [value2, setValue2] = useState('restofthepage');
+  const [DisplayPosition, setDisplayPosition] = useState('display_position');
+  var handleChangeRadioBtnDisplayPosition = useCallback(
+    (_, newValue) => setValue2(newValue),
+    (event) => setDisplayPosition(event.target.value),
+    []
   );
+
+  // radiobtn device target
+  const [value3, setValue3] = useState('displayboth')
+  const [devicetarget, setDeviceTarget] = useState('display_both ');
+  var handleDeviceTarget = useCallback(
+    (_, newValue) => setValue3(newValue),
+    (event) => setDeviceTarget(event.target.value),
+    []
+  );
+
+  // radiobtn product targeting
+  const [value4, setValue4] = useState('includenonphysical')
+  const [producttargeting, setProductTargeting] = useState('includenonphysical ');
+  var handleProductTargeting = useCallback(
+    (_, newValue) => setValue4(newValue),
+    (event) => setProductTargeting(event.target.value),
+    []
+  );
+
+  // radiobtn customer targeting
+  const [value5, setValue5] = useState('allcustomer')
+  const [customertargeting, setCustomerTargeting] = useState('allcustomer');
+  var handleCustomerTargeting = useCallback(
+    (_, newValue) => setValue5(newValue),
+    (event) => setCustomerTargeting(event.target.value),
+    []
+  );
+
+  // const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+
+  // const fileUpload = !files.length && <DropZone.FileUpload />;
+  // const uploadedFiles = files.length > 0 && (
+  //   <div style={{ padding: '0' }}>
+  //     <Stack vertical>
+  //       {files.map((file, index) => (
+  //         <Stack alignment="center" key={index}>
+  //           <Thumbnail
+  //             size="small"
+  //             alt={file.name}
+  //             source={
+  //               validImageTypes.includes(file.type)
+  //                 ? window.URL.createObjectURL(file)
+  //                 : NoteMinor
+  //             }
+  //           />
+  //           <div>
+  //             {file.name}{' '}
+  //             <p variant="bodySm" as="p">
+  //               {file.size} bytes
+  //             </p>
+  //           </div>
+  //         </Stack>
+  //       ))}
+  //     </Stack>
+  //   </div>
+  // );
 
 
   // delete modal
@@ -704,7 +745,7 @@ function index() {
       "exclude_page_keyword": displayexcludePageKeywords,
       "device_target": devicetarget,
       "product_targeting": producttargeting,
-      "shipping_fee_exceptions": shippingfee,
+      "shipping_fee_exceptions": 'selectedshippingfee',
       "customer_targeting": customertargeting,
       "geo_location_target": "geoLocationTarget",
       "exclude_geo_location": "exludegeotarget",
@@ -729,6 +770,7 @@ function index() {
           pauseOnHover: true,
           type: "success"
         });
+        // alert("You have successfully added")
       }
 
     }).catch((error) => {
@@ -749,7 +791,7 @@ function index() {
     }
     );
 
-    // //getData();
+    // getData();
     fetchData();
     setShowContent(0);
     setBasicTemplate(0);
@@ -812,9 +854,6 @@ function index() {
       .catch((error) => {
         console.log(error)
       });
-
-    setShowContent(1);
-    setBasicTemplate(1);
   }
 
   // edit shipping data
@@ -857,7 +896,7 @@ function index() {
       "exclude_page_keyword": displayexcludePageKeywords,
       "device_target": devicetarget,
       "product_targeting": producttargeting,
-      "shipping_fee_exceptions": shippingfee,
+      "shipping_fee_exceptions": 'selectedshippingfee',
       "customer_targeting": customertargeting,
       "geo_location_target": "geoLocationTarget",
       "exclude_geo_location": "exludegeotarget",
@@ -907,7 +946,7 @@ function index() {
     }
     );
 
-    // //getData();
+    // getData();
     fetchData();
     setShowContent(0);
     setBasicTemplate(0);
@@ -1573,7 +1612,90 @@ function index() {
                           </span>
                         }
                       />
-                      <ChoiceList
+                      <Stack>
+                        <p>Select a Display Position:</p>
+                      </Stack>
+                      <div
+                        style={{
+                          marginTop: '20px',
+                        }}
+                      >
+                        <Stack vertical>
+                          <RadioButton
+                            label="Top bar pushes down the rest of the page"
+                            checked={
+                              value2 ===
+                              'restofthepage'
+                            }
+                            id="restofthepage"
+                            name="restofthepage"
+                            onChange={
+                              handleChangeRadioBtnDisplayPosition
+                            }
+                          />
+                          <RadioButton
+                            label="Top bar pushes down the rest of the page (always visible while scrolling)"
+                            checked={
+                              value2 ===
+                              'restofthepagealwaysvisiblewhilescrolling'
+                            }
+                            id="restofthepagealwaysvisiblewhilescrolling"
+                            name="restofthepagealwaysvisiblewhilescrolling"
+                            onChange={
+                              handleChangeRadioBtnDisplayPosition
+                            }
+                          />
+                          <RadioButton
+                            label="Top bar overlaps top of the page"
+                            checked={
+                              value2 ===
+                              'topofpage'
+                            }
+                            id="topofpage"
+                            name="topofpage"
+                            onChange={
+                              handleChangeRadioBtnDisplayPosition
+                            }
+                          />
+                          <RadioButton
+                            label="Top bar overlaps top of the page (always visible while scrolling)"
+                            checked={
+                              value2 ===
+                              'topofpagealwaysvisiblewhilescrolling'
+                            }
+                            id="topofpagealwaysvisiblewhilescrolling"
+                            name="topofpagealwaysvisiblewhilescrolling"
+                            onChange={
+                              handleChangeRadioBtnDisplayPosition
+                            }
+                          />
+                          <RadioButton
+                            label="Bottom bar overlaps bottom of the page (always visible while scrolling)"
+                            checked={
+                              value2 ===
+                              'bottomofpagealwaysvisiblewhilescrolling'
+                            }
+                            id="bottomofpagealwaysvisiblewhilescrolling"
+                            name="bottomofpagealwaysvisiblewhilescrolling"
+                            onChange={
+                              handleChangeRadioBtnDisplayPosition
+                            }
+                          />
+                          <RadioButton
+                            label="Manual Placement – Allows manual insertion of the bar’s code into your theme"
+                            checked={
+                              value2 ===
+                              'manualplacement'
+                            }
+                            id="manualplacement"
+                            name="manualplacement"
+                            onChange={
+                              handleChangeRadioBtnDisplayPosition
+                            }
+                          />
+                        </Stack>
+                      </div>
+                      {/* <ChoiceList
                         title="Select a Display Position:"
                         choices={[
                           { label: 'Top bar pushes down the rest of the page', value: 'hidden' },
@@ -1586,7 +1708,7 @@ function index() {
                         ]}
                         selected={DisplayPosition}
                         onChange={handleSelectDisplayPosition}
-                      />
+                      /> */}
                       {/* </div> */}
 
                     </FormLayout>
@@ -2622,199 +2744,396 @@ function index() {
                     <Stack>
                       <p>Display on Page:</p>
                       <Icon
-                        source={PlayCircleMajor}
+                        source={
+                          PlayCircleMajor
+                        }
                         color="base"
-                      /><Link url='https://support.hextom.com/hc/en-us/articles/11725619312147' removeUnderline>Tutorial Video</Link>
+                      />
+                      <Link
+                        url="https://support.hextom.com/hc/en-us/articles/11725619312147"
+                        removeUnderline
+                      >
+                        Tutorial Video
+                      </Link>
                     </Stack>
-                    <div style={{ marginTop: '20px' }}>
+                    <div
+                      style={{
+                        marginTop: '20px',
+                      }}
+                    >
                       <Stack vertical>
                         <RadioButton
                           label="All pages"
-                          checked={value === 'all'}
+                          checked={
+                            value ===
+                            'all'
+                          }
                           id="all"
                           name="all"
-                          onChange={handleChangeRadioBtn}
+                          onChange={
+                            handleChangeRadioBtn
+                          }
                         />
                         <RadioButton
                           label="Homepage only"
                           id="home"
                           name="home"
-                          checked={value === 'home'}
-                          onChange={handleChangeRadioBtn}
+                          checked={
+                            value ===
+                            'home'
+                          }
+                          onChange={
+                            handleChangeRadioBtn
+                          }
                         />
                         <RadioButton
                           label="Only on Page with URL (Copy and Paste the URL below)"
                           id="display_urlpage"
                           name="display_urlpage"
-                          checked={value === 'display_urlpage'}
-                          onChange={handleChangeRadioBtn}
+                          checked={
+                            value ===
+                            'display_urlpage'
+                          }
+                          onChange={
+                            handleChangeRadioBtn
+                          }
                         />
-                        {value === 'display_urlpage' &&
-                          <TextField id="display_page_url" label="Page URL" name="display_page_url" variant="outlined" value={displayPageUrl} onChange={(e) => setDisplayPageUrl(e.target.value)}
-                            helpText={
-                              <span>
-                                Input the link address above (you can copy and paste the page URL directly into the field)
-                              </span>
-                            }
-                          />
-                        }
+                        {value ===
+                          'display_urlpage' && (
+                            <TextField
+                              id="display_page_url"
+                              label="Page URL"
+                              name="display_page_url"
+                              variant="outlined"
+                              value={
+                                displayPageUrl
+                              }
+                              onChange={e =>
+                                setDisplayPageUrl(
+                                  e
+                                    .target
+                                    .value
+                                )
+                              }
+                              helpText={
+                                <span>
+                                  Input the link address above (you can copy and paste the page URL directly into the field)
+                                </span>
+                              }
+                            />
+                          )}
                         <RadioButton
                           label="Only on Pages that contain the keyword in their URLs"
                           id="display_keywords"
                           name="display_keywords"
-                          checked={value === 'display_keywords'}
-                          onChange={handleChangeRadioBtn}
+                          checked={
+                            value ===
+                            'display_keywords'
+                          }
+                          onChange={
+                            handleChangeRadioBtn
+                          }
                         />
-                        {value === 'display_keywords' &&
-                          <TextField id="display_page_keywords" type='text' label="Keywords" name="display_page_keywords" variant="outlined"
-                            value={displayPageKeywords} onChange={(e) => setDisplayPageKeywords(e.target.value)}
-                            helpText={
-                              <span>
-                                Input the Keywords above. Use commas to separate if there are multiple keywords. The bar displays if any keyword is matched
-                              </span>
-                            }
-                          />
-                        }
+                        {value ===
+                          'display_keywords' && (
+                            <TextField
+                              id="display_page_keywords"
+                              type="text"
+                              label="Keywords"
+                              name="display_page_keywords"
+                              variant="outlined"
+                              value={
+                                displayPageKeywords
+                              }
+                              onChange={e =>
+                                setDisplayPageKeywords(
+                                  e
+                                    .target
+                                    .value
+                                )
+                              }
+                              helpText={
+                                <span>
+                                  Input the Keywords above. Use commas to separate if there are multiple keywords. The bar displays if any keyword is matched
+                                </span>
+                              }
+                            />
+                          )}
                       </Stack>
                     </div>
                     {/* end display on page */}
 
-
-
                     {/* exclude page */}
-                    <div style={{ marginTop: '20px' }}>
+                    <div
+                      style={{
+                        marginTop: '20px',
+                      }}
+                    >
                       <Stack>
                         <p>Exclude Page:</p>
                         <Icon
-                          source={PlayCircleMajor}
+                          source={
+                            PlayCircleMajor
+                          }
                           color="base"
-                        /><Link url='https://support.hextom.com/hc/en-us/articles/11725619312147' removeUnderline>Tutorial Video</Link>
+                        />
+                        <Link
+                          url="https://support.hextom.com/hc/en-us/articles/11725619312147"
+                          removeUnderline
+                        >
+                          Tutorial Video
+                        </Link>
                       </Stack>
                       <Stack vertical>
                         <RadioButton
                           label="Do NOT exclude any page"
-                          checked={value === 'notexclude'}
+                          checked={
+                            value1 ===
+                            'excludepage'
+                          }
                           id="notexclude"
                           name="notexclude"
-                          onChange={handleChangeRadioBtnExclude}
+                          onChange={
+                            handleChangeRadioBtnExclude
+                          }
                         />
                         <RadioButton
                           label="Homepage only"
                           id="home_page"
                           name="home_page"
                           disabled
-                          checked={value === 'home_page'}
-                          onChange={handleChangeRadioBtnExclude}
+                          checked={
+                            value1 ===
+                            'home_page'
+                          }
+                          onChange={
+                            handleChangeRadioBtnExclude
+                          }
                         />
                         <RadioButton
                           label="Only exclude Page with URL (Copy and Paste the URL below)"
                           id="display_exclude_urlpage"
                           name="display_exclude_urlpage"
-                          checked={value === 'display_exclude_urlpage'}
-                          onChange={handleChangeRadioBtnExclude}
+                          checked={
+                            value1 ===
+                            'display_exclude_urlpage'
+                          }
+                          onChange={
+                            handleChangeRadioBtnExclude
+                          }
                         />
-                        {value === 'display_exclude_urlpage' &&
-                          <TextField id="display_page_url" label="Page URL" name="display_page_url" variant="outlined" value={displayexcludePageUrl} onChange={(e) => setDisplayExcludePageUrl(e.target.value)}
-                            helpText={
-                              <span>
-                                Input the link address above (you can copy and paste the page URL directly into the field)
-                              </span>
-                            }
-                          />
-                        }
+                        {value1 ===
+                          'display_exclude_urlpage' && (
+                            <TextField
+                              id="display_page_url"
+                              label="Page URL"
+                              name="display_page_url"
+                              variant="outlined"
+                              value={
+                                displayexcludePageUrl
+                              }
+                              onChange={e =>
+                                setDisplayExcludePageUrl(
+                                  e
+                                    .target
+                                    .value
+                                )
+                              }
+                              helpText={
+                                <span>
+                                  Input the link address above (you can copy and paste the page URL directly into the field)
+                                </span>
+                              }
+                            />
+                          )}
                         <RadioButton
                           label="Only exclude Pages that contain the keyword in their URLs"
                           id="display_exclude_keywords"
                           name="display_exclude_keywords"
-                          checked={value === 'display_exclude_keywords'}
-                          onChange={handleChangeRadioBtnExclude}
+                          checked={
+                            value1 ===
+                            'display_exclude_keywords'
+                          }
+                          onChange={
+                            handleChangeRadioBtnExclude
+                          }
                         />
-                        {value === 'display_exclude_keywords' &&
-                          <TextField id="display_page_exclude_keywords" type='text' label="Keywords" name="display_page_exclude_keywords" variant="outlined"
-                            value={displayexcludePageKeywords} onChange={(e) => setDisplayExcludePageKeywords(e.target.value)}
-                            helpText={
-                              <span>
-                                Input the Keywords above. Use commas to separate if there are multiple keywords. The bar displays if any keyword is matched
-                              </span>
-                            }
-                          />
-                        }
+                        {value1 ===
+                          'display_exclude_keywords' && (
+                            <TextField
+                              id="display_page_exclude_keywords"
+                              type="text"
+                              label="Keywords"
+                              name="display_page_exclude_keywords"
+                              variant="outlined"
+                              value={
+                                displayexcludePageKeywords
+                              }
+                              onChange={e =>
+                                setDisplayExcludePageKeywords(
+                                  e
+                                    .target
+                                    .value
+                                )
+                              }
+                              helpText={
+                                <span>
+                                  Input the Keywords above. Use commas to separate if there are multiple keywords. The bar displays if any keyword is matched
+                                </span>
+                              }
+                            />
+                          )}
                       </Stack>
-                      {/* <ChoiceList
-                        choices={[
-                          { label: 'Do NOT exclude any page', value: 'notexclude' },
-                          { label: 'Homepage only', value: 'homepage' },
-                          { label: 'Only exclude Page with URL (Copy and Paste the URL below)', value: 'excludepage' },
-                          { label: 'Only exclude Pages that contain the keyword in their URLs', value: 'excludepagepagekeywordurl' },
-                        ]}
-                        selected={excludepage}
-                        onChange={handleExcludePage}
-                      /> */}
                     </div>
                     {/* end exclude page */}
 
 
                     {/* device target */}
-                    <div style={{ marginTop: '20px' }}>
-                      <ChoiceList
-                        title="Device Target:"
-                        choices={[
-                          { label: 'Display on both desktop and mobile browsers. On mobile browsers font size will be capped to achieve optimum display', value: 'displayboth' },
-                          { label: 'Display only on desktop browsers', value: 'displaydesktop' },
-                          { label: 'Display only on mobile browsers', value: 'displaymobile' },
-                        ]}
-                        selected={devicetarget}
-                        onChange={handleDeviceTarget}
-                      />
+                    <div
+                      style={{
+                        marginTop: '20px',
+                      }}
+                    >
+                      <Stack>
+                        <p>Device Target:</p>
+                      </Stack>
+                      <Stack vertical>
+                        <RadioButton
+                          label="Display on both desktop and mobile browsers. On mobile browsers font size will be capped to achieve optimum display"
+                          checked={
+                            value3 ===
+                            'displayboth'
+                          }
+                          id="displayboth"
+                          name="displayboth"
+                          onChange={
+                            handleDeviceTarget
+                          }
+                        />
+                        <RadioButton
+                          label="Display only on desktop browsers"
+                          checked={
+                            value3 ===
+                            'displaydesktop'
+                          }
+                          id="displaydesktop"
+                          name="displaydesktop"
+                          onChange={
+                            handleDeviceTarget
+                          }
+                        />
+                        <RadioButton
+                          label="Display only on mobile browsers"
+                          checked={
+                            value3 ===
+                            'displaymobile'
+                          }
+                          id="displaymobile"
+                          name="displaymobile"
+                          onChange={
+                            handleDeviceTarget
+                          }
+                        />
+                      </Stack>
                     </div>
                     {/* end device target */}
 
 
                     {/* product targeting */}
-                    <div style={{ marginTop: '20px' }}>
+                    <div
+                      style={{
+                        marginTop: '20px',
+                      }}
+                    >
                       <Stack>
-                        <p>Product Targeting:</p>
+                        <p>
+                          Product Targeting:
+                        </p>
                         <Icon
-                          source={PlayCircleMajor}
-                          color="base"
-                        /><Link url='https://support.hextom.com/hc/en-us/articles/11725619312147' removeUnderline>Tutorial Video</Link>
-                      </Stack>
-                      <ChoiceList
-                        choices={[
-                          { label: 'Exclude non-physical/digital products toward achieving free shipping and hide message on those product pages', value: 'excludenonphysical' },
-                          { label: 'Exclude non-physical/digital products toward achieving free shipping and hide message on those product pages', value: 'disable' },
-                          // { label: 'Display only on mobile browsers', value: 'displaymobile' },
-                        ]}
-                        selected={producttargeting}
-                        onChange={handleProductTargeting}
-                      />
-                      {/* <Stack>
-                        <Icon
-                          source={LockMajor}
+                          source={
+                            PlayCircleMajor
+                          }
                           color="base"
                         />
-                        <Link>Upgrade</Link>
-                      </Stack> */}
+                        <Link
+                          url="https://support.hextom.com/hc/en-us/articles/11725619312147"
+                          removeUnderline
+                        >
+                          Tutorial Video
+                        </Link>
+                      </Stack>
+                      <Stack vertical>
+                        <RadioButton
+                          label="Include non-physical/digital products toward achieving free shipping and show message on all pages"
+                          checked={
+                            value4 ===
+                            'includenonphysical'
+                          }
+                          id="includenonphysical"
+                          name="includenonphysical"
+                          onChange={
+                            handleProductTargeting
+                          }
+                        />
+                        <RadioButton
+                          label="Exclude non-physical/digital products toward achieving free shipping and hide message on those product pages"
+                          checked={
+                            value4 ===
+                            'excludenonphysical'
+                          }
+                          id="excludenonphysical"
+                          name="excludenonphysical"
+                          onChange={
+                            handleProductTargeting
+                          }
+                          disabled
+                        />
+                      </Stack>
                     </div>
                     {/* end product targeting */}
 
 
                     {/* shipping fee exceptions */}
-                    <div style={{ marginTop: '20px' }}>
+                    <div
+                      style={{
+                        marginTop: '20px',
+                      }}
+                    >
                       <Stack>
-                        <p>Shipping Fee Exceptions:</p>
+                        <p>
+                          Shipping Fee
+                          Exceptions:
+                        </p>
                         <Icon
-                          source={LockMajor}
+                          source={
+                            LockMajor
+                          }
                           color="base"
-                        /><Link removeUnderline>Upgrade</Link>
+                        />
+                        <Link
+                          removeUnderline
+                        >
+                          Upgrade
+                        </Link>
                       </Stack>
                       <OptionList
-                        onChange={handleShippingFee}
+                        onChange={
+                          handleShippingFee
+                        }
+                        disabled
                         options={[
-                          { value: 'freeshipping', label: 'There are products that do not count toward free shipping' },
-                          { value: 'shippingfees', label: 'There products that always incure shipping fees' },
+                          {
+                            value: 'freeshipping',
+                            label: 'There are products that do not count toward free shipping',
+                          },
+                          {
+                            value: 'shippingfees',
+                            label: 'There products that always incure shipping fees',
+                          },
                         ]}
-                        selected={shippingfee}
+                        selected={
+                          selectedshippingfee
+                        }
                         allowMultiple
                       />
                     </div>
@@ -2822,23 +3141,67 @@ function index() {
 
 
                     {/* customer targeting */}
-                    <div style={{ marginTop: '20px' }}>
+                    <div
+                      style={{
+                        marginTop: '20px',
+                      }}
+                    >
                       <Stack>
-                        <p>Customer Targeting:</p>
+                        <p>
+                          Customer
+                          Targeting:
+                        </p>
                         <Icon
-                          source={PlayCircleMajor}
+                          source={
+                            PlayCircleMajor
+                          }
                           color="base"
-                        /><Link url='https://support.hextom.com/hc/en-us/articles/11725619312147' removeUnderline>Tutorial Video</Link>
+                        />
+                        <Link
+                          url="https://support.hextom.com/hc/en-us/articles/11725619312147"
+                          removeUnderline
+                        >
+                          Tutorial Video
+                        </Link>
                       </Stack>
-                      <ChoiceList
-                        choices={[
-                          { label: 'All customers', value: 'allcustomer' },
-                          { label: 'Target customers based on customer tag', value: 'basedoncustomertag' },
-                          { label: 'Target customers based on lifetime spent', value: 'basedoncustomerlifetimespent' },
-                        ]}
-                        selected={customertargeting}
-                        onChange={handleCustomerTargeting}
-                      />
+                      <Stack vertical>
+                        <RadioButton
+                          label="All customers"
+                          checked={
+                            value5 ===
+                            'allcustomer'
+                          }
+                          id="allcustomer"
+                          name="allcustomer"
+                          onChange={
+                            handleCustomerTargeting
+                          }
+                        />
+                        <RadioButton
+                          label="Target customers based on customer tag"
+                          checked={
+                            value5 ===
+                            'basedoncustomertag'
+                          }
+                          id="basedoncustomertag"
+                          name="basedoncustomertag"
+                          onChange={
+                            handleCustomerTargeting
+                          }
+                        />
+                        <RadioButton
+                          label="Target customers based on lifetime spent"
+                          checked={
+                            value5 ===
+                            'basedoncustomerlifetimespent'
+                          }
+                          id="basedoncustomerlifetimespent"
+                          name="basedoncustomerlifetimespent"
+                          onChange={
+                            handleCustomerTargeting
+                          }
+                        />
+                      </Stack>
                     </div>
                     {/* end customer targeting */}
 
