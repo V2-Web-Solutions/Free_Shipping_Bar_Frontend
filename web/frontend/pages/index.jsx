@@ -478,24 +478,24 @@ function index() {
 
 
 
-  const [displayonpage, setDisplayonPage] = useState('all');
+  // const [displayonpage, setDisplayonPage] = useState('all'); 
   // var handleDisplayonPage = useCallback(
   //   function (value) {
   //     console.log('_____>', value);
   //     return setDisplayonPage(value);
   //   },
   //   []);
-  const handleDisplayOnPage = (event) => {
-    setDisplayonPage(event.target.value);
-  }
+  // const handleDisplayOnPage = (event) => {
+  //   setDisplayonPage(event.target.value);
+  // }
 
-  const [excludepage, setExcludePage] = useState('notexclude ');
-  var handleExcludePage = useCallback(
-    function (value) {
-      console.log('_____>', value);
-      return setExcludePage(value);
-    },
-    []);
+  // const [excludepage, setExcludePage] = useState('notexclude ');
+  // var handleExcludePage = useCallback(
+  //   function (value) {
+  //     console.log('_____>', value);
+  //     return setExcludePage(value);
+  //   },
+  //   []);
   // const handleExcludePage = (event) => {
   //   setExcludePage(event.target.value);
   // }
