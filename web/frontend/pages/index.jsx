@@ -153,13 +153,9 @@ function index() {
     setSelectcurrency(event);
   }
 
-
-
-
   const handleChangeCurrencyIcon = useCallback(
     value => setSelectcurrency(value),
   )
-
 
   const handleCurrencySymbolPosition = useCallback(
     value => setSelectCurrencySymbolPosition(value),
@@ -252,7 +248,7 @@ function index() {
   }
   );
 
-  console.log('color>>>>>>>>>>>', textColor);
+  // console.log('color>>>>>>>>>>>', textColor);
 
   const handleBarPadding = useCallback((event) => {
     console.log('_____>', event);
@@ -299,7 +295,6 @@ function index() {
     })
     setId(0)
   }
-
 
   const selectedStyle = {
     background: backgroundColor,
@@ -505,36 +500,6 @@ function index() {
     []
   );
 
-  // const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-
-  // const fileUpload = !files.length && <DropZone.FileUpload />;
-  // const uploadedFiles = files.length > 0 && (
-  //   <div style={{ padding: '0' }}>
-  //     <Stack vertical>
-  //       {files.map((file, index) => (
-  //         <Stack alignment="center" key={index}>
-  //           <Thumbnail
-  //             size="small"
-  //             alt={file.name}
-  //             source={
-  //               validImageTypes.includes(file.type)
-  //                 ? window.URL.createObjectURL(file)
-  //                 : NoteMinor
-  //             }
-  //           />
-  //           <div>
-  //             {file.name}{' '}
-  //             <p variant="bodySm" as="p">
-  //               {file.size} bytes
-  //             </p>
-  //           </div>
-  //         </Stack>
-  //       ))}
-  //     </Stack>
-  //   </div>
-  // );
-
-
   // delete modal
   const [active, setActive] = useState(false);
 
@@ -655,7 +620,7 @@ function index() {
       // alert(" Error!!!")
     }
     );
-    fetchData();
+    fetchData()
     setShowContent(0);
     setBasicTemplate(0);
     setAfterBasicData(0);
@@ -1024,6 +989,7 @@ function index() {
         <ToastContainer />
         <Layout>
           <Layout.Section>
+            {/* [Required] Setup Free Shipping: */}
             <Card title='[Required] Setup Free Shipping:' sectioned>
               <p>Follow these steps to setup free shipping with a minimum order value for your Shopify store</p>
               <List type='number'>
@@ -1064,9 +1030,11 @@ function index() {
                   If you have questions, email us at help@hextom.com, and we will help.</p>
               </TextContainer>
             </Card>
+            {/* end [Required] Setup Free Shipping: */}
 
             {products && products.length > 0 ?
               <>
+                {/* Free Shipping Bar (FSB) Dashboard */}
                 <Card sectioned>
                   <Card.Section>
                     <Stack>
@@ -1086,28 +1054,14 @@ function index() {
                       headings={['Name', 'Geo Target', 'Excluded', 'Actions', 'Achievements']}
                       rows={rows}
                     />
-
-                    {/* <IndexTable
-                    resourceName={resourceName}
-                    itemCount={orders.length}
-                    headings={[
-                      { title: 'Name' },
-                      // { title: ' ' },
-                      { title: 'Geo Target', alignment: 'center' },
-                      { title: 'Excluded' },
-                      { title: 'Actions', alignment: 'center' },
-                      { title: 'Achievements' },
-                    ]}
-                    selectable={false}
-                  >
-                    {rowMarkup}
-                  </IndexTable> */}
                   </Card.Section>
 
                 </Card>
+                {/* end Free Shipping Bar (FSB) Dashboard */}
               </>
               :
               <>
+                {/* Create your 1st Free Shipping Bar */}
                 <MediaCard
                   title="Create your 1st Free Shipping Bar?"
                   primaryAction={{
@@ -1123,6 +1077,7 @@ function index() {
                     onClick={() => console.log('clicked')}
                   />
                 </MediaCard>
+                {/* end Create your 1st Free Shipping Bar */}
               </>
             }
 
