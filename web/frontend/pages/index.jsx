@@ -272,7 +272,7 @@ function index() {
     console.log("handlebasictemplate---------------->", event.target.style.backgroundImage);
   }
 
-  console.log("selectedImage----->>>>>>>>>>", selectedImage);
+  // console.log("selectedImage----->>>>>>>>>>", selectedImage);
 
   const handleBackgroundColor = (event) => {
     setBackgroundColor(rgbToHex(event.target.value))
@@ -476,19 +476,6 @@ function index() {
     { label: 'NO', value: 'NO' },
   ];
 
-
-
-  // const [DisplayPosition, setDisplayPosition] = useState('hidden');
-  // var handleSelectDisplayPosition = useCallback(
-  //   function (value) {
-  //     console.log('_____>', value);
-  //     return setDisplayPosition(value);
-  //   },
-  //   []);
-
-  // const handleSelectDisplayPosition = (event) => {
-  //   setDisplayPosition(event.target.value)
-  // }
 
 
   const [displayonpage, setDisplayonPage] = useState('all');
@@ -696,9 +683,9 @@ function index() {
           "X-Shop-Name": shopName
         },
       })
-        .then(response =>
+        .then(res =>
           // console.log("GETALL-------->", response.data.data),
-          setProducts(response.data.data),
+          setProducts(res.data.data),
         )
     } catch (error) {
       console.log(error);
@@ -790,8 +777,6 @@ function index() {
       // alert(" Error!!!")
     }
     );
-
-    // getData();
     fetchData();
     setShowContent(0);
     setBasicTemplate(0);
@@ -945,22 +930,11 @@ function index() {
       // alert(" Error!!!")
     }
     );
-
-    // getData();
     fetchData();
     setShowContent(0);
     setBasicTemplate(0);
     setAfterBasicData(0);
   }
-
-  // get all shipping
-  // function //getData() {
-  //   axios.get('/api/getShipping')
-  //     .then(res => {
-  //       console.log("GETSHIPPINGDATA---------->----------->", res.data);
-  //       setShowData(res.data)
-  //     });
-  // }
 
   // isActive 
   const handleActivate = (id, shop_name) => {
@@ -1014,8 +988,6 @@ function index() {
   // delete shipping
   const handleDeleteData = (id) => {
 
-    // if (confirm("Are you sure you want ")) {
-
     axios.delete(`/api/deleteShipping/` + id, {
       headers: {
         "X-Shop-Name": shopName
@@ -1037,8 +1009,6 @@ function index() {
             type: "success"
           });
         }
-
-        //getData();
         fetchData();
         setActive(!active), [active]
       })
@@ -1083,8 +1053,6 @@ function index() {
             pauseOnHover: true,
             type: "success"
           });
-
-          //getData();
           fetchData();
 
         } else {
@@ -1108,9 +1076,7 @@ function index() {
 
 
   // rows
-
   const rows =
-    // ({products && products.length > 0 ?
     products.map(product => {
       return [
         <>
@@ -1144,7 +1110,6 @@ function index() {
         product.Achievements = "Premium Only"
       ];
     })
-  // : 'Create new bar'})
 
   // get all currency
   useEffect(() => {
@@ -1154,7 +1119,6 @@ function index() {
       setCurrencyData(response.data.DemoData);
 
     })
-    //getData();
     fetchData();
   }, [])
 
@@ -1326,7 +1290,6 @@ function index() {
 
             {showContent && showContent === 1 ?
               <>
-
                 {/* preview */}
                 <div className="stickyHeader">
                   <Card title='Preview' sectioned >
@@ -1382,7 +1345,6 @@ function index() {
                   </Card>
                 </div>
                 {/* end preview */}
-
 
                 {/* content configuration */}
                 <Card sectioned>
@@ -1794,7 +1756,6 @@ function index() {
                   </Collapsible>
                 </Card>
                 {/* end currency configuration */}
-
 
                 {/* style configuration */}
                 <Card sectioned>
@@ -2716,8 +2677,6 @@ function index() {
                 </Card>
                 {/* end style configuration */}
 
-
-
                 {/* Targeting Configuration */}
                 <Card sectioned>
                   <Stack>
@@ -3277,9 +3236,6 @@ function index() {
                 </Card>
                 {/* end targeting configuration */}
 
-
-
-
                 {/* custom code configuration */}
                 <Card sectioned>
                   <Stack>
@@ -3329,7 +3285,6 @@ function index() {
                   </Collapsible>
                 </Card>
                 {/* end custom code configuration */}
-
 
                 {/* cancel and save btns */}
                 <Card sectioned>
