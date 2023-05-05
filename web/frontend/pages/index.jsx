@@ -962,7 +962,7 @@ function index() {
 
     })
     fetchData();
-  }, []);
+  }, [products]);
 
   return (
     <>
