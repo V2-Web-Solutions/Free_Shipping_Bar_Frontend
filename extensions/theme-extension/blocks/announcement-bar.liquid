@@ -1,0 +1,29 @@
+{{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
+
+{% comment %}
+  <div id="announcement-bar">
+    <p>Announcement text goes here</p>
+    <button id="dismiss-announcement">Dismiss</button>
+  </div>
+{% endcomment %}
+
+<div class="free-shipping-bar">
+  <p class="free-shipping-text">Free shipping on all orders over $50!</p>
+</div>
+
+<script src="{{ 'announcement-bar.js' | asset_url }}" async></script>
+
+<script>
+  var myApp = {
+    shopName: '{{ shop.url }}',
+  };
+</script>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "target": "section",
+  // "section": "announcement-bar",
+  "settings": []
+}
+{% endschema %}
