@@ -10,6 +10,8 @@ import GDPRWebhookHandlers from './gdpr.js'
 import bodyParser from 'body-parser'
 import nodemailer from 'nodemailer'
 import mailGen from 'mailgen'
+import cors from 'cors'
+
 
 import shippingRoute from './routes/shippingRoute.js'
 import currencyRoute from './routes/currencyRoute.js'
@@ -23,6 +25,13 @@ const STATIC_PATH =
     : `${process.cwd()}/frontend/`
 
 const app = express()
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+}
+
+app.use(cors(corsOptions))
 
 app.use(bodyParser.json())
 app.use('/api', shippingRoute)
