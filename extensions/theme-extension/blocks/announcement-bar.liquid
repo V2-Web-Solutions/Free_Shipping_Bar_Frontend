@@ -1,11 +1,14 @@
 {{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+
 <div class="free-shipping-bar">
   <p class="free-shipping-text">{{ block.settings.announcement_text }}</p>
 </div>
 
- <script src="{{ 'announcement-bar.js' | asset_url }}" async></script> 
 
+ <script src="{{ 'announcement-bar.js' | asset_url }}" async></script> 
+ 
  <script>
   var myApp = {
     shopName: '{{ shop.url }}',

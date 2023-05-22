@@ -1,5 +1,5 @@
 const shopName = myApp.shopName;
-console.log("shopName---",shopName);
+// console.log("shopName---",shopName);
 const updateData = async () => {
   let file = "https://5760-49-43-34-232.ngrok-free.app/api/getIsActive";
 
@@ -11,7 +11,7 @@ const updateData = async () => {
       },
     });
     const data = await response.json();
-    console.log("data---", data);
+    // console.log("data---", data);
     return data;
   
   } catch (error) {
@@ -40,15 +40,13 @@ async function updateFreeShippingBar() {
  
   try {
     const updateDataMessage = await updateData()
-    // console.log("updateDataMessage---", updateDataMessage.data);
-    // console.log("called");
     const freeShippingBar = document.querySelector(".free-shipping-bar");
     const freeShippingText = freeShippingBar.querySelector(".free-shipping-text");
     const cart = await isFreeShippingEligible();
     const cartPrice = cart.total_price / 100;
 
     if (cartPrice > 5000) {
-      freeShippingText.textContent = `${updateDataMessage.data.message5}`      
+      freeShippingText.textContent = `${updateDataMessage.data.message5}`;      
   } else {
     const remainingAmount = formatCurrency(5000 - cartPrice, cart.currency);
 
@@ -61,22 +59,24 @@ async function updateFreeShippingBar() {
   
 }
 
-// Listen for cart updates and update the free shipping bar accordingly
-// document.addEventListener("cart:update", function (event) {
-//   event.preventDefault();
-//   console.log("cart update", event);
-//   updateFreeShippingBar();
-// });
-
-// Define your custom function to be called on cart update
-function handleCartUpdate() {
-  // Your custom code here
-  console.log('Cart has been updated!');
-  // Perform any desired actions or updates on your website
+// Function to update the cart using the Shopify AJAX API
+function updateCart() {
+  const params = {
+    type: "POST",
+    url: "/cart/update.js",
+    dataType: "json",
+    success: function (cart) {
+      updateFreeShippingBar();
+    },
+    error: function (XMLHttpRequest, textStatus) {
+      console.log("Error:", textStatus);
+    },
+  };
+  $.ajax(params);
 }
 
-// Register the event listener for the cart update event
-document.addEventListener('cart:updated', handleCartUpdate);
+// Listen for changes in the quantity input fields
+document.addEventListener("change", updateCart);
 
 // Update the free shipping bar when the page loads
 updateFreeShippingBar();
