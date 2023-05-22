@@ -57,10 +57,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-
-
 function index() {
-
 
   const [basictemplate, setBasicTemplate] = useState(0);
   const [showContent, setShowContent] = useState(0);
@@ -516,7 +513,7 @@ function index() {
   const [AfterBasicData, setAfterBasicData] = useState(0);
   const [Id, setId] = useState(0);
 
-  console.log("shopname=-===", shopName);
+  // console.log("shopname=-===", shopName);
 
   // fetching data
   const fetchData = () => {
@@ -961,8 +958,11 @@ function index() {
       setCurrencyData(response.data.DemoData);
 
     })
+  }, []);
+
+  useEffect(() => {
     fetchData();
-  }, [products]);
+  }, []);
 
   return (
     <>
