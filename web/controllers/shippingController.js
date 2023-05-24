@@ -547,7 +547,7 @@ export const isActive = async (req, res) => {
 		}
 
 		if (shop_name === updateIsActive.shop_name) {
-			console.log('==========', shipping_check.is_activate);
+			// console.log('==========', shipping_check.is_activate);
 			if (shipping_check.is_activate === 1) {
 				await updateIsActive.update({ is_activate: 0 });
 			} else {

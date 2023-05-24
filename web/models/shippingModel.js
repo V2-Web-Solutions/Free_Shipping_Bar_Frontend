@@ -105,7 +105,7 @@ export const shippingModel = (sequelize, DataTypes) => {
       allowNull: false,
     },
     time_to_fade_in_out: {
-      type: DataTypes.DATE,
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
     display_on_page: {

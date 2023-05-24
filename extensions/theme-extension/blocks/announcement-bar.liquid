@@ -2,10 +2,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
 
-<div class="free-shipping-bar">
-  <p class="free-shipping-text">{{ block.settings.announcement_text }}</p>
+<div class="v2-free-shipping-bar">
+  <p class="v2-free-shipping-text"></p>
 </div>
-
 
  <script src="{{ 'announcement-bar.js' | asset_url }}" async></script> 
  
@@ -21,12 +20,7 @@
   "target": "section",
   // "section": "announcement-bar",
   "settings": [
-    {
-      "label" : "Announment Text",
-      "id": "announcement_text",
-      "type": "text",
-      "default": "Free shipping on all orders over $50!"
-    }
+   
   ]
 }
 {% endschema %}

@@ -1,7 +1,9 @@
-const shopName = myApp.shopName;
-// console.log("shopName---",shopName);
+const ENV_LIVE_URL = "https://d3e5-49-43-33-199.ngrok-free.app"
+
+const shopName = myApp.shopName.replace(/^https?:\/\//, '');
+
 const updateData = async () => {
-  let file = "https://5760-49-43-34-232.ngrok-free.app/api/getIsActive";
+  let file = ENV_LIVE_URL + "/api/getIsActive";
 
   try {
     const response = await fetch(file, {
@@ -11,7 +13,7 @@ const updateData = async () => {
       },
     });
     const data = await response.json();
-    // console.log("data---", data);
+    
     return data;
   
   } catch (error) {
@@ -40,18 +42,75 @@ async function updateFreeShippingBar() {
  
   try {
     const updateDataMessage = await updateData()
-    const freeShippingBar = document.querySelector(".free-shipping-bar");
-    const freeShippingText = freeShippingBar.querySelector(".free-shipping-text");
+    const freeShippingBar = document.querySelector(".v2-free-shipping-bar");
+    const freeShippingText = freeShippingBar.querySelector(".v2-free-shipping-text");
+
     const cart = await isFreeShippingEligible();
-    const cartPrice = cart.total_price / 100;
+    const cartPrice = cart.total_price / 100.00;
+    console.log("cartPrice", cartPrice);
 
-    if (cartPrice > 5000) {
-      freeShippingText.textContent = `${updateDataMessage.data.message5}`;      
-  } else {
-    const remainingAmount = formatCurrency(5000 - cartPrice, cart.currency);
+    const remainingAmount = formatCurrency(`${updateDataMessage.data.free_shipping_goal}` - cartPrice, cart.currency);
 
-    freeShippingText.textContent = `Spend ${remainingAmount} more to qualify for free shipping`;
-  }
+    const addLinkToBar = `${updateDataMessage.data.add_link_to_bar}`
+    console.log("addLinkToBar---", typeof(addLinkToBar));
+
+    // if(addLinkToBar == "1"){
+    //   // $(".v2-free-shipping-bar").html(`<a href="#">Your Link Text</a>`);
+    // }
+
+    if (cartPrice == 0) {
+
+      // if(addLinkToBar == "1"){
+      //   freeShippingBar.innerHTML = `<a href="${updateDataMessage.data.link_URL}" class="v2-free-shipping-link">${updateDataMessage.data.message1} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message2}</a>`; 
+      // }
+      freeShippingText.innerHTML  = `${updateDataMessage.data.message1} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message2}`;
+    }
+    else if (cartPrice > `${updateDataMessage.data.free_shipping_goal}`) {
+      // if(addLinkToBar == "1"){
+      //   freeShippingBar.innerHTML = `<a href="${updateDataMessage.data.link_URL}" class="v2-free-shipping-link">${updateDataMessage.data.message5}</a>`; 
+      // }
+      freeShippingText.textContent = `${updateDataMessage.data.message5}`;
+    }
+    else {
+      // if(addLinkToBar == "1"){
+      //   freeShippingBar.innerHTML = `<a href="${updateDataMessage.data.link_URL}" class="v2-free-shipping-link">${updateDataMessage.data.message3} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message4}</a>`; 
+      // }
+      freeShippingText.innerHTML = `${updateDataMessage.data.message3} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message4}`;
+    }
+
+    // styles for free shipping bar
+
+    freeShippingBar.style.backgroundColor = `${updateDataMessage.data.background_color}`;
+    freeShippingBar.style.backgroundImage = `${updateDataMessage.data.background_image}`;
+    freeShippingBar.style.padding = `${updateDataMessage.data.bar_padding}px`;
+    freeShippingBar.style.color = `${updateDataMessage.data.text_color}`;
+    freeShippingBar.style.fontFamily = `${updateDataMessage.data.font_family}`;
+    freeShippingBar.style.fontSize = `${updateDataMessage.data.font_size}px`;
+    freeShippingBar.style.cursor = 'pointer';
+   
+    const disappearAfter = `${updateDataMessage.data.disappear_after}`;
+
+    if(disappearAfter != 0) {
+      setTimeout(function() { $(".v2-free-shipping-bar").hide(); }, disappearAfter * 1000)
+    }
+
+    const timeToFadeInOut = `${updateDataMessage.data.time_to_fade_in_out}`;
+
+    if (timeToFadeInOut !== 0) {
+      $(".v2-free-shipping-bar").css({ opacity: 0 }).animate({ opacity: 1 }, timeToFadeInOut * 1000);
+    }
+
+    if(addLinkToBar == "1"){
+      freeShippingBar.addEventListener('click', function() {
+        window.location.href = `${updateDataMessage.data.link_URL}`;
+      });
+    }
+
+
+    // if (timeToFadeInOut != 0) {
+    //   $(".free-shipping-bar").fadeIn(timeToFadeInOut * 1000);
+    //   console.log("fade----",$(".free-shipping-bar").fadeIn(timeToFadeInOut * 1000));
+    // }
 
   } catch (error) {
     console.log("Error:", error);
@@ -64,12 +123,12 @@ function updateCart() {
   const params = {
     type: "POST",
     url: "/cart/update.js",
-    dataType: "json",
+    dataType: "json", 
     success: function (cart) {
       updateFreeShippingBar();
     },
     error: function (XMLHttpRequest, textStatus) {
-      console.log("Error:", textStatus);
+      console.log("Error:--updatecart", textStatus);
     },
   };
   $.ajax(params);
@@ -78,6 +137,17 @@ function updateCart() {
 // Listen for changes in the quantity input fields
 document.addEventListener("change", updateCart);
 
+// Find the "Add to Cart" button on the page
+const addToCartButton = document.querySelector(".product-form__submit");
+
+// Add a click event listener to the "Add to Cart" button
+if (addToCartButton) {
+  addToCartButton.addEventListener("click", updateFreeShippingBar);
+}
+
+// setInterval(function() {
+//   updateFreeShippingBar();
+// }, 10000);
+
 // Update the free shipping bar when the page loads
 updateFreeShippingBar();
-

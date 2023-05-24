@@ -239,7 +239,7 @@ function index() {
 
 
   const handleSelectedFontSize = useCallback((event) => {
-    console.log('_____>', event);
+    
     setSelectedFontSize(event);
 
   }
@@ -248,25 +248,25 @@ function index() {
   // console.log('color>>>>>>>>>>>', textColor);
 
   const handleBarPadding = useCallback((event) => {
-    console.log('_____>', event);
+    
     setBarPadding(event);
 
   });
 
   const handleDisappearAfter = useCallback((event) => {
-    console.log('_____>', event);
+    
     setDisappearAfter(event);
 
   });
 
   const handleDisappearBefore = useCallback((event) => {
-    console.log('_____>', event);
+    
     setDelayBefore(event);
 
   });
 
   const handleFadeOut = useCallback((event) => {
-    console.log('_____>', event);
+    console.log('handleFadeOut>', event);
     setTime(event);
 
   });
@@ -534,6 +534,7 @@ function index() {
 
   // create shipping
   const handleSubmit = () => {
+
     let PostData = {
       // id: id,
       // shop_id: shopId,
@@ -683,6 +684,9 @@ function index() {
 
   // edit shipping data
   const handleUpdateData = (id) => {
+
+    console.log("handleFadeOut-------", time)
+
     let PostData = {
       // id: id,
       // shop_id: shopId,
