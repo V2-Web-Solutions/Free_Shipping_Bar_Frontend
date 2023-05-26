@@ -1,4 +1,4 @@
-const ENV_LIVE_URL = "https://d3e5-49-43-33-199.ngrok-free.app"
+const ENV_LIVE_URL = "https://ad6a-49-43-32-43.ngrok-free.app"
 
 const shopName = myApp.shopName.replace(/^https?:\/\//, '');
 
@@ -51,30 +51,16 @@ async function updateFreeShippingBar() {
 
     const remainingAmount = formatCurrency(`${updateDataMessage.data.free_shipping_goal}` - cartPrice, cart.currency);
 
-    const addLinkToBar = `${updateDataMessage.data.add_link_to_bar}`
-    console.log("addLinkToBar---", typeof(addLinkToBar));
-
-    // if(addLinkToBar == "1"){
-    //   // $(".v2-free-shipping-bar").html(`<a href="#">Your Link Text</a>`);
-    // }
-
     if (cartPrice == 0) {
 
-      // if(addLinkToBar == "1"){
-      //   freeShippingBar.innerHTML = `<a href="${updateDataMessage.data.link_URL}" class="v2-free-shipping-link">${updateDataMessage.data.message1} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message2}</a>`; 
-      // }
-      freeShippingText.innerHTML  = `${updateDataMessage.data.message1} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message2}`;
+      freeShippingText.innerHTML = `${updateDataMessage.data.message1} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message2}`;
     }
-    else if (cartPrice > `${updateDataMessage.data.free_shipping_goal}`) {
-      // if(addLinkToBar == "1"){
-      //   freeShippingBar.innerHTML = `<a href="${updateDataMessage.data.link_URL}" class="v2-free-shipping-link">${updateDataMessage.data.message5}</a>`; 
-      // }
+    else if (cartPrice >= `${updateDataMessage.data.free_shipping_goal}`) {
+
       freeShippingText.textContent = `${updateDataMessage.data.message5}`;
     }
     else {
-      // if(addLinkToBar == "1"){
-      //   freeShippingBar.innerHTML = `<a href="${updateDataMessage.data.link_URL}" class="v2-free-shipping-link">${updateDataMessage.data.message3} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message4}</a>`; 
-      // }
+
       freeShippingText.innerHTML = `${updateDataMessage.data.message3} <span style="color:${updateDataMessage.data.special_text_color}"> ${remainingAmount} </span> ${updateDataMessage.data.message4}`;
     }
 
@@ -86,7 +72,7 @@ async function updateFreeShippingBar() {
     freeShippingBar.style.color = `${updateDataMessage.data.text_color}`;
     freeShippingBar.style.fontFamily = `${updateDataMessage.data.font_family}`;
     freeShippingBar.style.fontSize = `${updateDataMessage.data.font_size}px`;
-    freeShippingBar.style.cursor = 'pointer';
+    
    
     const disappearAfter = `${updateDataMessage.data.disappear_after}`;
 
@@ -100,22 +86,136 @@ async function updateFreeShippingBar() {
       $(".v2-free-shipping-bar").css({ opacity: 0 }).animate({ opacity: 1 }, timeToFadeInOut * 1000);
     }
 
+    const addLinkToBar = `${updateDataMessage.data.add_link_to_bar}`;
+
     if(addLinkToBar == "1"){
+      freeShippingBar.style.cursor = 'pointer';
       freeShippingBar.addEventListener('click', function() {
         window.location.href = `${updateDataMessage.data.link_URL}`;
       });
     }
 
+    const includeCloseButton = `${updateDataMessage.data.include_close_button}`;
+    const closeButton = document.createElement("span");
+    closeButton.innerHTML = "&times;"; // Add the close icon, such as an "X" symbol
 
-    // if (timeToFadeInOut != 0) {
-    //   $(".free-shipping-bar").fadeIn(timeToFadeInOut * 1000);
-    //   console.log("fade----",$(".free-shipping-bar").fadeIn(timeToFadeInOut * 1000));
+    if (includeCloseButton == "1") {
+      // Create close button element
+
+      // Style the close button
+      closeButton.style.position = "absolute";
+      closeButton.style.top = "5px";
+      closeButton.style.right = "10px";
+      closeButton.style.cursor = "pointer";
+      closeButton.style.fontSize = "24px";
+      closeButton.style.fontWeight = "bold";
+      closeButton.style.color = `${updateDataMessage.data.text_color}`;
+
+      // Add click event listener to close the bar
+      closeButton.addEventListener("click", function () {
+        freeShippingBar.style.display = "none";
+      });
+
+      // Insert the close button after the free shipping bar
+      freeShippingBar.parentNode.insertBefore(closeButton, freeShippingBar.nextSibling);
+    }
+
+
+    // Check if the current device width matches the specified conditions
+    const deviceWidth = window.innerWidth;
+    const displayOnMobileWidth = 768; // Set the desired width for displaying on mobile devices
+    console.log("deviceWidth", deviceWidth, displayOnMobileWidth);
+
+    // Check if the current page matches the specified conditions
+    const currentPage = window.location.href;
+    const displayOnHomePage = "all"; // Set to true to display on the home page
+    const displayOnURL = currentPage.includes("your-url"); // Replace "your-url" with the desired URL
+    const displayOnKeywords = currentPage.includes("keyword1") || currentPage.includes("keyword2"); // Replace "keyword1" and "keyword2" with desired keywords
+
+    // Set the display style based on the device width condition
+    // if (deviceWidth <= displayOnMobileWidth && (displayOnHomePage == "all" || isHomePage()) ) {
+    //   console.log("aaaa");
+    //   freeShippingBar.style.display = "block";
+    // } else {
+    //   console.log("bbbb");
+
+    //   freeShippingBar.style.display = "none";
+    // }
+
+    // Check if the current URL matches the specified URL
+    const specificURL = "http://127.0.0.1:9292/cart"; // Set the desired URL
+    const isSpecificURL = window.location.href === specificURL;
+
+    const str = "JavaScript,products,to,Array";
+
+    // const str ='products,example2,example3,example4';
+
+    // Check if the current page contains the specified keywords
+    const keywordList = str.split(","); // Set the desired keywords
+    const isPageWithKeywords = checkIfPageWithKeywords(keywordList); // Function to check if the current page contains the specified keywords
+    
+
+     // Set the display style based on the conditions
+     const displayOnMobile = true; // Set to true to display on mobile devices
+     const displayOnDesktop = true; // Set to true to display on desktop devices
+
+    //  if (
+    //   (displayOnMobile && isMobileDevice && deviceWidth <= displayOnMobileWidth) ||
+    //   (displayOnDesktop && !isMobileDevice && isHomePage) || isSpecificURL
+    // ) {
+
+    if(displayOnMobile){
+
+      if ((isPageWithKeywords || isSpecificURL) && displayOnMobile && deviceWidth <= displayOnMobileWidth) {
+        
+        freeShippingBar.style.display = "block";
+      } else {
+        console.log("iff else");
+        freeShippingBar.style.display = "none";
+        closeButton.style.display = "none";
+      }
+    } else {
+      if ((isPageWithKeywords || isSpecificURL)  && displayOnDesktop && deviceWidth >= displayOnMobileWidth ) {
+        console.log("elsee iff");
+        freeShippingBar.style.display = "block";
+      }else {
+        console.log("elsee elsee");
+        freeShippingBar.style.display = "none";
+        closeButton.style.display = "none";
+      }
+    }
+
+     // Set the display style based on the page conditions
+    //  if(displayOnHomePage && isHomePage()){
+    //   freeShippingBar.style.display = "block";
+    //  }else {
+    //   freeShippingBar.style.display = "none";
     // }
 
   } catch (error) {
     console.log("Error:", error);
   }
   
+}
+
+// Add event listener for window resize to update the free shipping bar based on device width
+window.addEventListener("resize", updateFreeShippingBar);
+
+// Function to check if the current page is the home page
+function isHomePage() {
+  return window.location.pathname === "/";
+}
+
+// Function to check if the current page contains the specified keywords
+function checkIfPageWithKeywords(keywordList) {
+  const currentPageURL = window.location.href;
+  for (const keyword of keywordList) {
+    console.log("currentPageURL---",currentPageURL,keyword,currentPageURL.includes(keyword));
+    if (currentPageURL.includes(keyword)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Function to update the cart using the Shopify AJAX API

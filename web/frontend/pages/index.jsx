@@ -213,8 +213,6 @@ function index() {
     setSpecialTextColor(event.target.style.color)
     setShowContent(1)
     setCustomCss()
-
-    console.log("handlebasictemplate---------------->", event.target.style.backgroundImage);
   }
 
   // console.log("selectedImage----->>>>>>>>>>", selectedImage);
@@ -424,7 +422,6 @@ function index() {
   const [displayschedule, setDisplaySchedule] = useState('alwaysdisplay ');
   var handleDisplaySchedule = useCallback(
     function (value) {
-      console.log('_____>', value);
       return setDisplaySchedule(value);
     },
     []);
@@ -434,8 +431,11 @@ function index() {
   // const [customJs, setCustomJs] = useState("");
 
   const handleCustomCode = useCallback((event) => {
-    console.log('CSS_____>', event);
     setCustomCss(event);
+  });
+
+  const handleDisplayPageUrl = useCallback((event) => {    
+    setDisplayPageUrl(event);
   });
 
   const [selectedshippingfee, setSelectedShippingFee] = useState(['']);
@@ -516,9 +516,9 @@ function index() {
   // console.log("shopname=-===", shopName);
 
   // fetching data
-  const fetchData = () => {
+  const fetchData = async () => {
     try {
-      axios.get('/api/getByShopNameShipping', {
+      await axios.get('/api/getByShopNameShipping', {
         headers: {
           "X-Shop-Name": shopName
         },
@@ -684,8 +684,6 @@ function index() {
 
   // edit shipping data
   const handleUpdateData = (id) => {
-
-    console.log("handleFadeOut-------", time)
 
     let PostData = {
       // id: id,
@@ -1131,7 +1129,7 @@ function index() {
                       <p id="v2_free_shipping_bar" className="text" style={selectedStyle}> {initialmessage}
                         {selectcurrencysymbolposition === "0" ?
                           <>
-                            <span style={{ color: specialTextColor }}> {selectcurrency === "" ? "INR" : selectcurrency} {freeshippinggoal} </span>
+                            <span style={{ color: specialTextColor }}> {selectcurrency === "" ? "INR" : selectcurrency} {freeshippinggoal} </span> {initialmessageblank}
                             {IncludeCloseButton == "1" ?
                               <span className="closebtn">x</span>
                               : ''
@@ -2601,13 +2599,7 @@ function index() {
                               value={
                                 displayPageUrl
                               }
-                              onChange={e =>
-                                setDisplayPageUrl(
-                                  e
-                                    .target
-                                    .value
-                                )
-                              }
+                              onChange={handleDisplayPageUrl}
                               helpText={
                                 <span>
                                   Input the link address above (you can copy and paste the page URL directly into the field)
@@ -2638,12 +2630,7 @@ function index() {
                               value={
                                 displayPageKeywords
                               }
-                              onChange={e =>
-                                setDisplayPageKeywords(
-                                  e
-                                    .target
-                                    .value
-                                )
+                              onChange={e => setDisplayPageKeywords(e.target.value)
                               }
                               helpText={
                                 <span>
