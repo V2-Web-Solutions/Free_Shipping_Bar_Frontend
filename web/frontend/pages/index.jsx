@@ -174,29 +174,29 @@ function index() {
     if (deg === null) {
       if (color2 === null) {
         setGradientColors({ ...gradientColors, color1: color1 });
-        setBackgroundImage(`linear-gradient(${ color1 })`);
+        setBackgroundImage(`linear-gradient(${color1})`);
       }
       else if (color3 === null) {
         setGradientColors({ ...gradientColors, color1: color1, color2: color2 });
-        setBackgroundImage(`linear-gradient(${ color1 }, ${ color2 })`);
+        setBackgroundImage(`linear-gradient(${color1}, ${color2})`);
       }
       else {
         setGradientColors({ ...gradientColors, color1: color1, color2: color2, color3: color3 });
-        setBackgroundImage(`linear-gradient(${ color1 }, ${ color2 },${ color3 })`);
+        setBackgroundImage(`linear-gradient(${color1}, ${color2},${color3})`);
       }
     }
     else {
       if (color2 === null) {
         setGradientColors({ ...gradientColors, deg: deg, color1: color1 });
-        setBackgroundImage(`linear-gradient(${ deg }, ${ color1 }`);
+        setBackgroundImage(`linear-gradient(${deg}, ${color1}`);
       }
       else if (color3 === null) {
         setGradientColors({ ...gradientColors, deg: deg, color1: color1, color2: color2 });
-        setBackgroundImage(`linear-gradient(${ deg }, ${ color1 }, ${ color2 }`);
+        setBackgroundImage(`linear-gradient(${deg}, ${color1}, ${color2}`);
       }
       else {
         setGradientColors({ ...gradientColors, deg: deg, color1: color1, color2: color2, color3: color3 });
-        setBackgroundImage(`linear-gradient(${ deg }, ${ color1 }, ${ color2 }, ${ color3 })`);
+        setBackgroundImage(`linear-gradient(${deg}, ${color1}, ${color2}, ${color3})`);
       }
     }
   }
@@ -237,7 +237,7 @@ function index() {
 
 
   const handleSelectedFontSize = useCallback((event) => {
-    
+
     setSelectedFontSize(event);
 
   }
@@ -246,19 +246,19 @@ function index() {
   // console.log('color>>>>>>>>>>>', textColor);
 
   const handleBarPadding = useCallback((event) => {
-    
+
     setBarPadding(event);
 
   });
 
   const handleDisappearAfter = useCallback((event) => {
-    
+
     setDisappearAfter(event);
 
   });
 
   const handleDisappearBefore = useCallback((event) => {
-    
+
     setDelayBefore(event);
 
   });
@@ -434,8 +434,44 @@ function index() {
     setCustomCss(event);
   });
 
-  const handleDisplayPageUrl = useCallback((event) => {    
+  const handleDisplayPageUrl = useCallback((event) => {
     setDisplayPageUrl(event);
+  });
+
+  const [keywordError, setKeywordError] = useState('');
+  const validateKeywords = (keywords) => {
+    const keywordList = keywords.split(',').map((keyword) => keyword.trim());
+    console.log("keywordList---", keywordList, keywordList.length);
+
+    if (keywordList.includes("")) {
+      return 'Please enter keywords separated by a comma.';
+    }
+
+    for (const keyword of keywordList) {
+      if (keyword === '') {
+        return 'Empty keyword found.';
+      }
+    }
+
+    return '';
+  };
+
+  const handleDisplayPageKeyword = (value) => {
+    const error = validateKeywords(value);
+    setDisplayPageKeywords(value);
+    setKeywordError(error);
+  };
+
+  // const handleDisplayPageKeyword = useCallback((event) => {
+  //   setDisplayPageKeywords(event);
+  // });
+
+  const handleDisplayExcludePageUrl = useCallback((event) => {
+    setDisplayExcludePageUrl(event);
+  });
+
+  const handleDisplayExcludePageKeyword = useCallback((event) => {
+    setDisplayExcludePageKeywords(event);
   });
 
   const [selectedshippingfee, setSelectedShippingFee] = useState(['']);
@@ -627,7 +663,7 @@ function index() {
   // get by id shipping
   const handleGetByIdData = (id) => {
 
-    axios.get(`/api/getByIdShipping/${ id }`, {
+    axios.get(`/api/getByIdShipping/${id}`, {
       headers: {
         "X-Shop-Name": shopName,
       },
@@ -665,6 +701,8 @@ function index() {
           setDelayBefore(res.data.data.delay_before_repeating)
           setTime(res.data.data.time_to_fade_in_out)
           setDisplayonPage(res.data.data.display_on_page)
+          setDisplayPageUrl(res.data.data.display_page_url)
+          setDisplayPageKeywords(res.data.data.display_page_keyword)
           setDeviceTarget(res.data.data.device_target)
           setProductTargeting(res.data.data.product_targeting)
           setCustomerTargeting(res.data.data.customer_targeting)
@@ -781,7 +819,7 @@ function index() {
   // isActive 
   const handleActivate = (id, shop_name) => {
 
-    axios.put(`/api/isActive/${ id }`, shop_name, {
+    axios.put(`/api/isActive/${id}`, shop_name, {
       headers: {
         "X-Shop-Name": shopName
       },
@@ -1104,15 +1142,15 @@ function index() {
                 <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 6, xl: 6 }}>
                   <Card title='Premium template Upgrade' sectioned>
                     <TextContainer>
-                      <p className='text' style={{ backgroundImage: `url(${ blckdiamond })`, color: '#000000' }} onClick={handleBasicTemplate}>Black Diamond</p>
-                      <p className='text' style={{ backgroundImage: `url(${ amazonian })`, color: '#EAD7BA' }} onClick={handleBasicTemplate}>Amazonian</p>
-                      <p className='text' style={{ backgroundImage: `url(${ nikki })`, color: '#6B6B6B' }} onClick={handleBasicTemplate}>Nikki</p>
-                      <p className='text' style={{ backgroundImage: `url(${ giftspark })`, color: '#6B6B6B' }} onClick={handleBasicTemplate}>Gift Spark</p>
-                      <p className='text' style={{ backgroundImage: `url(${ itsnewday })`, color: '#875A3C' }} onClick={handleBasicTemplate}>It’s a New Day</p>
-                      <p className='text' style={{ backgroundImage: `url(${ fullspring })`, color: '#3F3F3F' }} onClick={handleBasicTemplate}>Full Spring</p>
-                      <p className='text' style={{ backgroundImage: `url(${ summerwave })`, color: '#002B38' }} onClick={handleBasicTemplate}>Summer Wave</p>
-                      <p className='text' style={{ backgroundImage: `url(${ rosemakeup })`, color: '#E8535E' }} onClick={handleBasicTemplate}>Rose Makeup</p>
-                      <p className='text' style={{ backgroundImage: `url(${ classicxmas })`, color: '#FFFFFF' }} onClick={handleBasicTemplate}>Classic Xmas</p>
+                      <p className='text' style={{ backgroundImage: `url(${blckdiamond})`, color: '#000000' }} onClick={handleBasicTemplate}>Black Diamond</p>
+                      <p className='text' style={{ backgroundImage: `url(${amazonian})`, color: '#EAD7BA' }} onClick={handleBasicTemplate}>Amazonian</p>
+                      <p className='text' style={{ backgroundImage: `url(${nikki})`, color: '#6B6B6B' }} onClick={handleBasicTemplate}>Nikki</p>
+                      <p className='text' style={{ backgroundImage: `url(${giftspark})`, color: '#6B6B6B' }} onClick={handleBasicTemplate}>Gift Spark</p>
+                      <p className='text' style={{ backgroundImage: `url(${itsnewday})`, color: '#875A3C' }} onClick={handleBasicTemplate}>It’s a New Day</p>
+                      <p className='text' style={{ backgroundImage: `url(${fullspring})`, color: '#3F3F3F' }} onClick={handleBasicTemplate}>Full Spring</p>
+                      <p className='text' style={{ backgroundImage: `url(${summerwave})`, color: '#002B38' }} onClick={handleBasicTemplate}>Summer Wave</p>
+                      <p className='text' style={{ backgroundImage: `url(${rosemakeup})`, color: '#E8535E' }} onClick={handleBasicTemplate}>Rose Makeup</p>
+                      <p className='text' style={{ backgroundImage: `url(${classicxmas})`, color: '#FFFFFF' }} onClick={handleBasicTemplate}>Classic Xmas</p>
                     </TextContainer>
                   </Card>
                 </Grid.Cell>
@@ -1544,8 +1582,8 @@ function index() {
                       <Select
                         // options={Currency}
                         options={currencyData && currencyData.map(v => ({
-                          value: `${ v.code }`,
-                          label: `${ v.name } - ${ v.code }`,
+                          value: `${v.code}`,
+                          label: `${v.name} - ${v.code}`,
                         }))}
                         onChange={handleSelectCurrency}
                         value={selectcurrency}
@@ -1781,14 +1819,14 @@ function index() {
                                 value={gradientColors.color1}
                                 onChange={(e) => {
                                   setGradientColors({ ...gradientColors, color1: e.target.value }),
-                                    setBackgroundImage(`linear-gradient(${ gradientColors.deg }, ${ gradientColors.color1 }, ${ gradientColors.color2 })`)
+                                    setBackgroundImage(`linear-gradient(${gradientColors.deg}, ${gradientColors.color1}, ${gradientColors.color2})`)
                                 }}
                                 className="hidden"
                               />
                               <TextField id="background_color1" name="gradientbackground_color1" variant="outlined" value={gradientColors.color1} onChange={
                                 (e) => {
                                   setGradientColors({ ...gradientColors, color1: e.target.value }),
-                                    setBackgroundImage(`linear-gradient(${ gradientColors.deg }, ${ gradientColors.color1 }, ${ gradientColors.color2 })`)
+                                    setBackgroundImage(`linear-gradient(${gradientColors.deg}, ${gradientColors.color1}, ${gradientColors.color2})`)
                                 }
                               } style={{ margin: 8 }} />
                               {/* </Stack.Item>
@@ -1798,14 +1836,14 @@ function index() {
                                 value={gradientColors.color2}
                                 onChange={(e) => {
                                   setGradientColors({ ...gradientColors, color2: e.target.value }),
-                                    setBackgroundImage(`linear-gradient(${ gradientColors.deg }, ${ gradientColors.color1 }, ${ gradientColors.color2 })`)
+                                    setBackgroundImage(`linear-gradient(${gradientColors.deg}, ${gradientColors.color1}, ${gradientColors.color2})`)
                                 }}
                                 className="hidden"
                               />
                               <TextField id="background_color2" name="gradientbackground_color2" variant="outlined" value={gradientColors.color2}
                                 onChange={(e) => {
                                   setGradientColors({ ...gradientColors, color2: e.target.value }),
-                                    setBackgroundImage(`linear-gradient(${ gradientColors.deg }, ${ gradientColors.color1 }, ${ gradientColors.color2 })`)
+                                    setBackgroundImage(`linear-gradient(${gradientColors.deg}, ${gradientColors.color1}, ${gradientColors.color2})`)
                                 }} style={{ margin: 8 }} />
 
                               <input
@@ -1813,14 +1851,14 @@ function index() {
                                 value={gradientColors.color3}
                                 onChange={(e) => {
                                   setGradientColors({ ...gradientColors, color3: e.target.value }),
-                                    setBackgroundImage(`linear-gradient(${ gradientColors.deg }, ${ gradientColors.color1 }, ${ gradientColors.color2 },${ gradientColors.color3 })`)
+                                    setBackgroundImage(`linear-gradient(${gradientColors.deg}, ${gradientColors.color1}, ${gradientColors.color2},${gradientColors.color3})`)
                                 }}
                                 className="hidden"
                               />
                               <TextField id="background_color3" name="gradientbackground_color3" variant="outlined" value={gradientColors.color3}
                                 onChange={(e) => {
                                   setGradientColors({ ...gradientColors, color3: e.target.value }),
-                                    setBackgroundImage(`linear-gradient(${ gradientColors.deg }, ${ gradientColors.color1 }, ${ gradientColors.color2 },${ gradientColors.color3 })`)
+                                    setBackgroundImage(`linear-gradient(${gradientColors.deg}, ${gradientColors.color1}, ${gradientColors.color2},${gradientColors.color3})`)
                                 }}
                                 style={{ margin: 8 }} />
                               {/* {gradientColors.color3 != null ?
@@ -1859,7 +1897,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ christmas })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${christmas})`
                                     }} onClick={handleBasicTemplate}>
                                       Christmas
                                     </div>
@@ -1867,7 +1905,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ xmas })`, transition: 'transform 2s'
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${xmas})`, transition: 'transform 2s'
                                     }} onClick={handleBasicTemplate}>
                                       Christmas
                                     </div>
@@ -1875,7 +1913,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ sales })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${sales})`
                                     }} onClick={handleBasicTemplate}>
                                       Sales
                                     </div>
@@ -1883,7 +1921,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ blackfriday })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${blackfriday})`
                                     }} onClick={handleBasicTemplate}>
                                       BlackFriday
                                     </div>
@@ -1891,7 +1929,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ cybermonday })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${cybermonday})`
                                     }} onClick={handleBasicTemplate}>
                                       CyberMonday
                                     </div>
@@ -1899,7 +1937,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#F04D4B', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ sakura })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${sakura})`
                                     }} onClick={handleBasicTemplate}>
                                       Sakura
                                     </div>
@@ -1909,7 +1947,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#E8535E', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ acrylic })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${acrylic})`
                                     }} onClick={handleBasicTemplate}>
                                       acrylic
                                     </div>
@@ -1917,7 +1955,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#6B6B6B', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ colorful })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${colorful})`
                                     }} onClick={handleBasicTemplate}>
                                       Memphis
                                     </div>
@@ -1925,7 +1963,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#E54E4E', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ hat })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${hat})`
                                     }} onClick={handleBasicTemplate}>
                                       Christmas
                                     </div>
@@ -1933,7 +1971,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#E54E4E', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ candybar })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${candybar})`
                                     }} onClick={handleBasicTemplate}>
                                       Christmas
                                     </div>
@@ -1941,7 +1979,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#630621', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ valentines_02 })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${valentines_02})`
                                     }} onClick={handleBasicTemplate}>
                                       Valentines
                                     </div>
@@ -1949,7 +1987,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#000000', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ valentines_04 })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${valentines_04})`
                                     }} onClick={handleBasicTemplate}>
                                       Valentines
                                     </div>
@@ -1959,7 +1997,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#6B6B6B', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ seigaiha })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${seigaiha})`
                                     }} onClick={handleBasicTemplate}>
                                       Seigaiha
                                     </div>
@@ -1967,7 +2005,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#FFF1AE', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ herb })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${herb})`
                                     }} onClick={handleBasicTemplate}>
                                       Herb
                                     </div>
@@ -1975,7 +2013,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#3F3F3F', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ stpatrick_01 })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${stpatrick_01})`
                                     }} onClick={handleBasicTemplate}>
                                       St Patrick
                                     </div>
@@ -1983,7 +2021,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#3F3F3F', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ congruent_pentagon })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${congruent_pentagon})`
                                     }} onClick={handleBasicTemplate}>
                                       Pentagon
                                     </div>
@@ -1991,7 +2029,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#875A3C', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ halftone_yellow })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${halftone_yellow})`
                                     }} onClick={handleBasicTemplate}>
                                       Yellow
                                     </div>
@@ -1999,7 +2037,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#4C4C4C', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ newyear_beer })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${newyear_beer})`
                                     }} onClick={handleBasicTemplate}>
                                       New Year
                                     </div>
@@ -2009,7 +2047,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#4C4C4C', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ newyear_fireworks })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${newyear_fireworks})`
                                     }} onClick={handleBasicTemplate}>
                                       New Year
                                     </div>
@@ -2017,7 +2055,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#002B38', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ waves })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${waves})`
                                     }} onClick={handleBasicTemplate}>
                                       Waves
                                     </div>
@@ -2025,7 +2063,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ dust })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${dust})`
                                     }} onClick={handleBasicTemplate}>
                                       Dust
                                     </div>
@@ -2033,7 +2071,7 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#F2CA80', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ dark_sharp_edges })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${dark_sharp_edges})`
                                     }} onClick={handleBasicTemplate}>
                                       Dark Sharp
                                     </div>
@@ -2041,14 +2079,14 @@ function index() {
                                   <Grid.Cell>
                                     <div style={{
                                       color: '#F2CA80', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px',
-                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ halloween02 })`
+                                      boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${halloween02})`
                                     }} onClick={handleBasicTemplate}>
                                       Halloween
                                     </div>
                                   </Grid.Cell>
                                   <Grid.Cell>
                                     <div style={{
-                                      color: '#ff6100', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ ghost })`
+                                      color: '#ff6100', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '45px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ghost})`
                                     }} onClick={handleBasicTemplate}>
                                       Halloween
                                     </div>
@@ -2113,14 +2151,14 @@ function index() {
 
                                     <Grid columns={{ xs: 1, sm: 2, md: 2, lg: 4, xl: 4 }}>
                                       <Grid.Cell>
-                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', backgroundSize: 'cover', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ new_year })`, backgroundSize: 'cover' }} onClick={handleBasicTemplate}>
+                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', backgroundSize: 'cover', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${new_year})`, backgroundSize: 'cover' }} onClick={handleBasicTemplate}>
                                           New Year
                                         </div>
                                       </Grid.Cell>
                                       <Grid.Cell>
                                         <div style={{
                                           color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '60px', backgroundSize: 'cover',
-                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ fit_lunar })`
+                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${fit_lunar})`
                                         }} onClick={handleBasicTemplate}>
                                           Lunar New Year
                                         </div>
@@ -2128,7 +2166,7 @@ function index() {
                                       <Grid.Cell>
                                         <div style={{
                                           color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '60px', backgroundSize: 'cover',
-                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ fit_valentine })`
+                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${fit_valentine})`
                                         }} onClick={handleBasicTemplate}>
                                           Valentine
                                         </div>
@@ -2136,21 +2174,21 @@ function index() {
                                       <Grid.Cell>
                                         <div style={{
                                           color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '60px', backgroundSize: 'cover',
-                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ fit_halloween })`
+                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${fit_halloween})`
                                         }} onClick={handleBasicTemplate}>
                                           Halloween
                                         </div>
                                       </Grid.Cell>
 
                                       <Grid.Cell>
-                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', backgroundSize: 'cover', fontFamily: 'Roboto', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ thanks_giving })`, backgroundSize: 'cover' }} onClick={handleBasicTemplate}>
+                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', backgroundSize: 'cover', fontFamily: 'Roboto', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${thanks_giving})`, backgroundSize: 'cover' }} onClick={handleBasicTemplate}>
                                           Thanksgiving
                                         </div>
                                       </Grid.Cell>
                                       <Grid.Cell>
                                         <div style={{
                                           color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '60px', backgroundSize: 'cover',
-                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ black_friday })`
+                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${black_friday})`
                                         }} onClick={handleBasicTemplate}>
                                           Black Friday
                                         </div>
@@ -2158,7 +2196,7 @@ function index() {
                                       <Grid.Cell>
                                         <div style={{
                                           color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '60px', backgroundSize: 'cover',
-                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ cyber_monday })`
+                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${cyber_monday})`
                                         }} onClick={handleBasicTemplate}>
                                           Cyber Monday
                                         </div>
@@ -2166,7 +2204,7 @@ function index() {
                                       <Grid.Cell>
                                         <div style={{
                                           color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', height: '60px', backgroundSize: 'cover',
-                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${ fit_christmas })`
+                                          boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${fit_christmas})`
                                         }} onClick={handleBasicTemplate}>
                                           Christmas
                                         </div>
@@ -2630,8 +2668,8 @@ function index() {
                               value={
                                 displayPageKeywords
                               }
-                              onChange={e => setDisplayPageKeywords(e.target.value)
-                              }
+                              onChange={handleDisplayPageKeyword}
+                              error={Boolean(keywordError)}
                               helpText={
                                 <span>
                                   Input the Keywords above. Use commas to separate if there are multiple keywords. The bar displays if any keyword is matched
@@ -2639,6 +2677,11 @@ function index() {
                               }
                             />
                           )}
+                        {keywordError && (
+                          <div style={{ color: 'red', marginTop: '0.5rem' }}>
+                            {keywordError}
+                          </div>
+                        )}
                       </Stack>
                     </div>
                     {/* end display on page */}
@@ -2712,13 +2755,7 @@ function index() {
                               value={
                                 displayexcludePageUrl
                               }
-                              onChange={e =>
-                                setDisplayExcludePageUrl(
-                                  e
-                                    .target
-                                    .value
-                                )
-                              }
+                              onChange={handleDisplayExcludePageUrl}
                               helpText={
                                 <span>
                                   Input the link address above (you can copy and paste the page URL directly into the field)
@@ -2749,13 +2786,7 @@ function index() {
                               value={
                                 displayexcludePageKeywords
                               }
-                              onChange={e =>
-                                setDisplayExcludePageKeywords(
-                                  e
-                                    .target
-                                    .value
-                                )
-                              }
+                              onChange={handleDisplayExcludePageKeyword}
                               helpText={
                                 <span>
                                   Input the Keywords above. Use commas to separate if there are multiple keywords. The bar displays if any keyword is matched
