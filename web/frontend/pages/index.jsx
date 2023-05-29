@@ -386,7 +386,6 @@ function index() {
     value => setAddLinktotheBar(value),
     [],
   );
-  console.log('VAlue__>AddLinktotheBar---->', AddLinktotheBar);
 
   const OptionsAddLinktotheBar = [
     { label: 'OFF', value: "0" },
@@ -479,11 +478,12 @@ function index() {
 
   // radiobtn display page
   const [value, setValue] = useState('all');
-  const [displayPage, setDisplayPage] = useState("display_all_page");
 
   const handleChangeRadioBtn = useCallback(
-    (_, newValue) => setValue(newValue),
-    (event) => setDisplayPage(event.target.value),
+    (_, newValue) => {
+      setValue(newValue),
+      setDisplayonPage(newValue)
+    },
     []
   )
 
@@ -508,12 +508,17 @@ function index() {
 
   // radiobtn device target
   const [value3, setValue3] = useState('displayboth')
-  const [devicetarget, setDeviceTarget] = useState('display_both ');
+  const [devicetarget, setDeviceTarget] = useState('displayboth');
+
   var handleDeviceTarget = useCallback(
-    (_, newValue) => setValue3(newValue),
-    (event) => setDeviceTarget(event.target.value),
+    (_, newValue) => {
+      setValue3(newValue),
+      setDeviceTarget(newValue)
+    },
     []
   );
+ 
+
 
   // radiobtn product targeting
   const [value4, setValue4] = useState('includenonphysical')
@@ -601,7 +606,7 @@ function index() {
       "disappear_after": disappearAfter,
       "delay_before_repeating": delayBefore,
       "time_to_fade_in_out": time,
-      "display_on_page": "displayonpage",
+      "display_on_page": displayonpage,
       "display_page_url": displayPageUrl,
       "display_page_keyword": displayPageKeywords,
       "exclude_page": "excludepage",
@@ -723,6 +728,8 @@ function index() {
   // edit shipping data
   const handleUpdateData = (id) => {
 
+    console.log("displayonpage", displayonpage)
+
     let PostData = {
       // id: id,
       // shop_id: shopId,
@@ -753,7 +760,7 @@ function index() {
       "disappear_after": disappearAfter,
       "delay_before_repeating": delayBefore,
       "time_to_fade_in_out": time,
-      "display_on_page": "displayonpage",
+      "display_on_page": displayonpage,
       "display_page_url": displayPageUrl,
       "display_page_keyword": displayPageKeywords,
       "exclude_page": "excludepage",
@@ -2811,10 +2818,7 @@ function index() {
                       <Stack vertical>
                         <RadioButton
                           label="Display on both desktop and mobile browsers. On mobile browsers font size will be capped to achieve optimum display"
-                          checked={
-                            value3 ===
-                            'displayboth'
-                          }
+                          checked={value3 === 'displayboth'}
                           id="displayboth"
                           name="displayboth"
                           onChange={
@@ -2823,10 +2827,7 @@ function index() {
                         />
                         <RadioButton
                           label="Display only on desktop browsers"
-                          checked={
-                            value3 ===
-                            'displaydesktop'
-                          }
+                          checked={value3 ==='displaydesktop'}
                           id="displaydesktop"
                           name="displaydesktop"
                           onChange={
@@ -2835,10 +2836,7 @@ function index() {
                         />
                         <RadioButton
                           label="Display only on mobile browsers"
-                          checked={
-                            value3 ===
-                            'displaymobile'
-                          }
+                          checked={value3 ==='displaymobile'}
                           id="displaymobile"
                           name="displaymobile"
                           onChange={

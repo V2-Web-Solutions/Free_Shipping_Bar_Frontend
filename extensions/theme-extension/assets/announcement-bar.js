@@ -1,4 +1,4 @@
-const ENV_LIVE_URL = "https://b889-49-43-32-62.ngrok-free.app"
+const ENV_LIVE_URL = "https://5b83-49-43-35-8.ngrok-free.app"
 
 const shopName = myApp.shopName.replace(/^https?:\/\//, '');
 
@@ -128,9 +128,9 @@ async function updateFreeShippingBar() {
 
     // Check if the current page matches the specified conditions
     const currentPage = window.location.href;
-    const displayOnHomePage = "all"; // Set to true to display on the home page
-    const displayOnURL = currentPage.includes("your-url"); // Replace "your-url" with the desired URL
-    const displayOnKeywords = currentPage.includes("keyword1") || currentPage.includes("keyword2"); // Replace "keyword1" and "keyword2" with desired keywords
+    const displayOnPage = `${updateDataMessage.data.display_on_page}`; // Set to true to display on the home page
+    // const displayOnURL = currentPage.includes("your-url"); // Replace "your-url" with the desired URL
+    // const displayOnKeywords = currentPage.includes("keyword1") || currentPage.includes("keyword2"); // Replace "keyword1" and "keyword2" with desired keywords
 
     // Set the display style based on the device width condition
     // if (deviceWidth <= displayOnMobileWidth && (displayOnHomePage == "all" || isHomePage()) ) {
@@ -146,6 +146,9 @@ async function updateFreeShippingBar() {
     const specificURL = `${updateDataMessage.data.display_page_url}`; // Set the desired URL
     const isSpecificURL = window.location.href === specificURL;
 
+    const displayOnHome = `${updateDataMessage.data.display_on_page}`; // Set the desired URL
+    // const displayHome = window.location.href === displayOnHome;
+
     const str = `${updateDataMessage.data.display_page_keyword}`;
 
     // const str ='products,example2,example3,example4';
@@ -156,17 +159,20 @@ async function updateFreeShippingBar() {
     
 
      // Set the display style based on the conditions
-     const displayOnMobile = true; // Set to true to display on mobile devices
-     const displayOnDesktop = true; // Set to true to display on desktop devices
+     const displayOnMobile = `${updateDataMessage.data.device_target}`; // Set to true to display on mobile devices
+     console.log("displayOnMobile---",displayOnMobile, displayOnHome);
+    //  const displayOnDesktop = `${updateDataMessage.data.device_target}`; // Set to true to display on desktop devices
+    //  console.log("displayOnDesktop---",displayOnDesktop);
+
 
     //  if (
     //   (displayOnMobile && isMobileDevice && deviceWidth <= displayOnMobileWidth) ||
     //   (displayOnDesktop && !isMobileDevice && isHomePage) || isSpecificURL
     // ) {
 
-    if(displayOnMobile){
+    if(displayOnMobile == "displaymobile"){
 
-      if ((isPageWithKeywords || isSpecificURL) && displayOnMobile && deviceWidth <= displayOnMobileWidth) {
+      if ((isPageWithKeywords || isSpecificURL || displayOnPage == "all" || displayOnHome == "home" ) && displayOnMobile && deviceWidth <= displayOnMobileWidth) {
         
         freeShippingBar.style.display = "block";
       } else {
@@ -174,8 +180,17 @@ async function updateFreeShippingBar() {
         freeShippingBar.style.display = "none";
         closeButton.style.display = "none";
       }
+    } else if(displayOnMobile == "displaydesktop") {
+      if ((isPageWithKeywords || isSpecificURL || displayOnPage == "all")  && displayOnDesktop && deviceWidth >= displayOnMobileWidth ) {
+        console.log("elsee iff iff");
+        freeShippingBar.style.display = "block";
+      }else {
+        console.log("elsee iff  elsee");
+        freeShippingBar.style.display = "none";
+        closeButton.style.display = "none";
+      }
     } else {
-      if ((isPageWithKeywords || isSpecificURL)  && displayOnDesktop && deviceWidth >= displayOnMobileWidth ) {
+      if (isPageWithKeywords || isSpecificURL || displayOnPage == "all") {
         console.log("elsee iff");
         freeShippingBar.style.display = "block";
       }else {
@@ -184,6 +199,7 @@ async function updateFreeShippingBar() {
         closeButton.style.display = "none";
       }
     }
+    
 
      // Set the display style based on the page conditions
     //  if(displayOnHomePage && isHomePage()){
