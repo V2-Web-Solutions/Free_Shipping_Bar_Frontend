@@ -1,4 +1,4 @@
-const ENV_LIVE_URL = "https://ad6a-49-43-32-43.ngrok-free.app"
+const ENV_LIVE_URL = "https://b889-49-43-32-62.ngrok-free.app"
 
 const shopName = myApp.shopName.replace(/^https?:\/\//, '');
 
@@ -143,10 +143,10 @@ async function updateFreeShippingBar() {
     // }
 
     // Check if the current URL matches the specified URL
-    const specificURL = "http://127.0.0.1:9292/cart"; // Set the desired URL
+    const specificURL = `${updateDataMessage.data.display_page_url}`; // Set the desired URL
     const isSpecificURL = window.location.href === specificURL;
 
-    const str = "JavaScript,products,to,Array";
+    const str = `${updateDataMessage.data.display_page_keyword}`;
 
     // const str ='products,example2,example3,example4';
 

@@ -2151,7 +2151,7 @@ function index() {
 
                                     <Grid columns={{ xs: 1, sm: 2, md: 2, lg: 4, xl: 4 }}>
                                       <Grid.Cell>
-                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', backgroundSize: 'cover', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${new_year})`, backgroundSize: 'cover' }} onClick={handleBasicTemplate}>
+                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', fontFamily: 'Roboto', backgroundSize: 'cover', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${new_year})` }} onClick={handleBasicTemplate}>
                                           New Year
                                         </div>
                                       </Grid.Cell>
@@ -2181,7 +2181,7 @@ function index() {
                                       </Grid.Cell>
 
                                       <Grid.Cell>
-                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', backgroundSize: 'cover', fontFamily: 'Roboto', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${thanks_giving})`, backgroundSize: 'cover' }} onClick={handleBasicTemplate}>
+                                        <div style={{ color: '#FFFFFF', border: 'none', margin: '10px 0', padding: '10px', fontSize: '16px', backgroundSize: 'cover', fontFamily: 'Roboto', height: '60px', boxShadow: '-2px 2px 2px 0px #a3a3a3', backgroundImage: `url(${thanks_giving})` }} onClick={handleBasicTemplate}>
                                           Thanksgiving
                                         </div>
                                       </Grid.Cell>
