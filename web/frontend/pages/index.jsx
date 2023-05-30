@@ -482,7 +482,7 @@ function index() {
   const handleChangeRadioBtn = useCallback(
     (_, newValue) => {
       setValue(newValue),
-      setDisplayonPage(newValue)
+        setDisplayonPage(newValue)
     },
     []
   )
@@ -492,7 +492,11 @@ function index() {
   const [value1, setValue1] = useState('excludepage');
   const [displayexcludePage, setDisplayExcludePage] = useState("display_exclude_all_page");
   const handleChangeRadioBtnExclude = useCallback(
-    (_, newValue) => setValue1(newValue),
+    (_, newValue) => {
+      setValue1(newValue),
+        console.log("newValue", newValue)
+
+    },
     (event) => setDisplayExcludePage(event.target.value),
     []
   )
@@ -513,11 +517,11 @@ function index() {
   var handleDeviceTarget = useCallback(
     (_, newValue) => {
       setValue3(newValue),
-      setDeviceTarget(newValue)
+        setDeviceTarget(newValue)
     },
     []
   );
- 
+
 
 
   // radiobtn product targeting
@@ -1119,11 +1123,17 @@ function index() {
                   popoverActions={[{ content: 'Dismiss', onAction: (e) => { handleClear(e) } }]}
                 >
                   <VideoThumbnail
-                    videoLength={80}
+                    // videoLength={80}
                     thumbnailUrl={maxresdefault}
-                    onClick={() => console.log('clicked')}
+                  // onClick={() => console.log('clicked')}
                   />
+                  {/* <Thumbnail
+                    source={maxresdefault}
+                    size="large"
+                    alt="Black choker necklace"
+                  /> */}
                 </MediaCard>
+
                 {/* end Create your 1st Free Shipping Bar */}
               </>
             }
@@ -1426,7 +1436,7 @@ function index() {
                         />
                       </div>
 
-                      <div style={{ marginTop: '20px' }}>
+                      {/* <div style={{ marginTop: '20px' }}>
                         <Stack>
                           <p>
                             Add a progress bar:
@@ -1438,7 +1448,7 @@ function index() {
                           />
                           <Link removeUnderline>Upgrade</Link>
                         </Stack>
-                      </div>
+                      </div> */}
 
                       {/* <div style={{ marginTop: '20px' }}> */}
                       <Select
@@ -1555,84 +1565,6 @@ function index() {
                   </Collapsible>
                 </Card>
                 {/* end content configuration */}
-
-                {/* currency configuration */}
-                <Card sectioned>
-                  <Stack>
-                    <Stack.Item fill>
-                      <p style={{ fontWeight: 'bold', fontSize: '15px' }}>Currency Configuration</p>
-                    </Stack.Item>
-                    <Stack.Item>
-                      <Button onClick={handleCurrencyConfiguration}
-                        ariaExpanded={open}
-                        ariaControls="basic-collapsible"><Icon
-                          source={ChevronDownMinor}
-                          color="base"
-                        /></Button>
-                    </Stack.Item>
-                  </Stack>
-                  <Collapsible
-                    open={currencyconfiguration}
-                    id="basic-collapsible"
-                    transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
-                    expandOnPrint
-                  >
-                    {/* currency */}
-                    <div>
-                      <Stack>
-                        <p style={{ marginBottom: '15px' }}>Currency:</p>
-                        <Icon
-                          source={PlayCircleMajor}
-                          color="base"
-                        /><Link url='https://support.hextom.com/hc/en-us/articles/11725619312147' removeUnderline>Tutorial Video</Link>
-                      </Stack>
-                      <Select
-                        // options={Currency}
-                        options={currencyData && currencyData.map(v => ({
-                          value: `${v.code}`,
-                          label: `${v.name} - ${v.code}`,
-                        }))}
-                        onChange={handleSelectCurrency}
-                        value={selectcurrency}
-                      >
-                        {/* {currencyData && currencyData.map(v => {
-                          return <MenuItem value={v.symbol} >{v.country}</MenuItem>
-                        })
-                        } */}
-                      </Select>
-                    </div>
-                    {/* end currency */}
-
-                    {/* currency symbol */}
-                    <div style={{ marginTop: '20px' }}>
-                      <p style={{ marginBottom: '15px' }}>Currency Symbol:</p>
-                      <TextField
-                        name='currencysymbol'
-                        value={selectcurrency === "" ? "INR" : selectcurrency}
-                        // value={curr === "" ? "INR" : curr}
-                        type="text"
-                        onChange={handleChangeCurrencyIcon}
-                        autoComplete="off"
-                      // placeholder='USD'
-                      />
-                    </div>
-                    {/* end currency symbol */}
-
-                    {/* currency symbol positions */}
-                    <div style={{ marginTop: '20px' }}>
-                      <p style={{ marginBottom: '15px' }}>Currency Symbol Position:</p>
-                      <Select
-                        options={CurrencySymbolPosition}
-                        onChange={handleCurrencySymbolPosition}
-                        value={selectcurrencysymbolposition}
-                      />
-                      {selectcurrencysymbolposition === "0" ? <small>E.g. {selectcurrency === "" ? "INR" : selectcurrency} {freeshippinggoal}</small> : <small>E.g. {freeshippinggoal} {selectcurrency === "" ? "INR" : selectcurrency}</small>}
-
-                    </div>
-                    {/* end currency symbol positions */}
-                  </Collapsible>
-                </Card>
-                {/* end currency configuration */}
 
                 {/* style configuration */}
                 <Card sectioned>
@@ -2731,7 +2663,6 @@ function index() {
                           label="Homepage only"
                           id="home_page"
                           name="home_page"
-                          disabled
                           checked={
                             value1 ===
                             'home_page'
@@ -2827,7 +2758,7 @@ function index() {
                         />
                         <RadioButton
                           label="Display only on desktop browsers"
-                          checked={value3 ==='displaydesktop'}
+                          checked={value3 === 'displaydesktop'}
                           id="displaydesktop"
                           name="displaydesktop"
                           onChange={
@@ -2836,7 +2767,7 @@ function index() {
                         />
                         <RadioButton
                           label="Display only on mobile browsers"
-                          checked={value3 ==='displaymobile'}
+                          checked={value3 === 'displaymobile'}
                           id="displaymobile"
                           name="displaymobile"
                           onChange={
@@ -2846,295 +2777,9 @@ function index() {
                       </Stack>
                     </div>
                     {/* end device target */}
-
-
-                    {/* product targeting */}
-                    <div
-                      style={{
-                        marginTop: '20px',
-                      }}
-                    >
-                      <Stack>
-                        <p>
-                          Product Targeting:
-                        </p>
-                        <Icon
-                          source={
-                            PlayCircleMajor
-                          }
-                          color="base"
-                        />
-                        <Link
-                          url="https://support.hextom.com/hc/en-us/articles/11725619312147"
-                          removeUnderline
-                        >
-                          Tutorial Video
-                        </Link>
-                      </Stack>
-                      <Stack vertical>
-                        <RadioButton
-                          label="Include non-physical/digital products toward achieving free shipping and show message on all pages"
-                          checked={
-                            value4 ===
-                            'includenonphysical'
-                          }
-                          id="includenonphysical"
-                          name="includenonphysical"
-                          onChange={
-                            handleProductTargeting
-                          }
-                        />
-                        <RadioButton
-                          label="Exclude non-physical/digital products toward achieving free shipping and hide message on those product pages"
-                          checked={
-                            value4 ===
-                            'excludenonphysical'
-                          }
-                          id="excludenonphysical"
-                          name="excludenonphysical"
-                          onChange={
-                            handleProductTargeting
-                          }
-                          disabled
-                        />
-                      </Stack>
-                    </div>
-                    {/* end product targeting */}
-
-
-                    {/* shipping fee exceptions */}
-                    <div
-                      style={{
-                        marginTop: '20px',
-                      }}
-                    >
-                      <Stack>
-                        <p>
-                          Shipping Fee
-                          Exceptions:
-                        </p>
-                        <Icon
-                          source={
-                            LockMajor
-                          }
-                          color="base"
-                        />
-                        <Link
-                          removeUnderline
-                        >
-                          Upgrade
-                        </Link>
-                      </Stack>
-                      <OptionList
-                        onChange={
-                          handleShippingFee
-                        }
-                        disabled
-                        options={[
-                          {
-                            value: 'freeshipping',
-                            label: 'There are products that do not count toward free shipping',
-                          },
-                          {
-                            value: 'shippingfees',
-                            label: 'There products that always incure shipping fees',
-                          },
-                        ]}
-                        selected={
-                          selectedshippingfee
-                        }
-                        allowMultiple
-                      />
-                    </div>
-                    {/* end shipping fee exceptions */}
-
-
-                    {/* customer targeting */}
-                    <div
-                      style={{
-                        marginTop: '20px',
-                      }}
-                    >
-                      <Stack>
-                        <p>
-                          Customer
-                          Targeting:
-                        </p>
-                        <Icon
-                          source={
-                            PlayCircleMajor
-                          }
-                          color="base"
-                        />
-                        <Link
-                          url="https://support.hextom.com/hc/en-us/articles/11725619312147"
-                          removeUnderline
-                        >
-                          Tutorial Video
-                        </Link>
-                      </Stack>
-                      <Stack vertical>
-                        <RadioButton
-                          label="All customers"
-                          checked={
-                            value5 ===
-                            'allcustomer'
-                          }
-                          id="allcustomer"
-                          name="allcustomer"
-                          onChange={
-                            handleCustomerTargeting
-                          }
-                        />
-                        <RadioButton
-                          label="Target customers based on customer tag"
-                          checked={
-                            value5 ===
-                            'basedoncustomertag'
-                          }
-                          id="basedoncustomertag"
-                          name="basedoncustomertag"
-                          onChange={
-                            handleCustomerTargeting
-                          }
-                        />
-                        <RadioButton
-                          label="Target customers based on lifetime spent"
-                          checked={
-                            value5 ===
-                            'basedoncustomerlifetimespent'
-                          }
-                          id="basedoncustomerlifetimespent"
-                          name="basedoncustomerlifetimespent"
-                          onChange={
-                            handleCustomerTargeting
-                          }
-                        />
-                      </Stack>
-                    </div>
-                    {/* end customer targeting */}
-
-                    {/* geo location target */}
-                    <div style={{ marginTop: '20px' }}>
-                      <div style={{ marginBottom: '20px' }}>
-                        <Stack>
-                          <p>Geo Location Target:</p>
-                          <Icon
-                            source={PlayCircleMajor}
-                            color="base"
-                          /><Link url='https://support.hextom.com/hc/en-us/articles/11725619312147' removeUnderline>Tutorial Video</Link>
-                          <Icon
-                            source={LockMajor}
-                            color="base"
-                          /><Link removeUnderline>Upgrade</Link>
-                        </Stack>
-                      </div>
-                      <TextField disabled autoComplete="off" placeholder='Choose Country' helpText={
-                        <span>
-                          If you want to display for all countries, leave this field blank.
-                        </span>
-                      } />
-                    </div>
-                    {/* end geo location target */}
-
-
-                    {/* exclude location target */}
-                    <div style={{ marginTop: '20px' }}>
-                      <Stack>
-                        <p>Exclude  Location Target:</p>
-                        <Icon
-                          source={PlayCircleMajor}
-                          color="base"
-                        /><Link url='https://support.hextom.com/hc/en-us/articles/11725619312147' removeUnderline>Tutorial Video</Link>
-                        <Icon
-                          source={LockMajor}
-                          color="base"
-                        /><Link removeUnderline>Upgrade</Link>
-                      </Stack>
-                      <TextField disabled autoComplete="off" placeholder='Choose Country' helpText={
-                        <span>
-                          If you do not want to exclude any countries, leave this field blank.
-                        </span>
-                      } />
-                    </div>
-                    {/* end exclude location target */}
-
-
-                    {/* display schedule */}
-                    <div style={{ marginTop: '20px' }}>
-                      <Stack>
-                        <p>Display Schedule:</p>
-                        <Icon
-                          source={LockMajor}
-                          color="base"
-                        /><Link removeUnderline>Upgrade</Link>
-                      </Stack>
-                      <ChoiceList
-                        choices={[
-                          { label: 'Always display', value: 'alwaysdisplay' },
-                          { label: 'Only display within the given period of time', value: 'onlydisplaygiventime' },
-                          // { label: 'Target customers based on lifetime spent', value: 'basedoncustomerlifetimespent' },
-                        ]}
-                        disabled
-                        selected={displayschedule}
-                        onChange={handleDisplaySchedule}
-                      />
-                    </div>
-                    {/* end display schedule */}
-
                   </Collapsible>
                 </Card>
                 {/* end targeting configuration */}
-
-                {/* custom code configuration */}
-                <Card sectioned>
-                  <Stack>
-                    <Stack.Item fill>
-                      <p style={{ fontWeight: 'bold', fontSize: '15px', }}>Custom Code Configuration</p>
-                    </Stack.Item>
-                    <Stack.Item>
-                      <Button onClick={handleCustomCodeConfiguration}
-                        ariaExpanded={open}
-                        ariaControls="basic-collapsible"><Icon
-                          source={ChevronDownMinor}
-                          color="base"
-                        /></Button>
-                    </Stack.Item>
-                  </Stack>
-                  <Collapsible
-                    open={customcodeconfiguration}
-                    id="basic-collapsible"
-                    transition={{ duration: '500ms', timingFunction: 'ease-in-out' }}
-                    expandOnPrint
-                  >
-                    <Stack>
-                      <p style={{ marginBottom: '20px' }}>Custom Code:</p>
-                      <Icon
-                        source={LockMajor}
-                        color="base"
-                      /><Link removeUnderline>Upgrade</Link>
-                    </Stack>
-                    <TextField
-                      // label="Shipping address"
-                      name='custom_code'
-                      value={customCss} onChange={handleCustomCode}
-                      placeholder='Your custom javascript or css code here..'
-                      multiline={10}
-                      autoComplete="off"
-                    />
-
-                    <p style={{ marginTop: '15px' }}>
-                      <Link removeUnderline> Horizontal Zoom: </Link>
-                      Good for displaying a pattern based background image</p>
-                    <p>
-                      <Link removeUnderline> Vertical Scroll: </Link>
-                      A Background image scrolled vertically. Good for showing a product image.</p>
-                    <p>
-                      <Link removeUnderline> Vertical Scroll while Website is Scrolled: </Link>
-                      Good for displaying hero or product images</p>
-                  </Collapsible>
-                </Card>
-                {/* end custom code configuration */}
 
                 {/* cancel and save btns */}
                 <Card sectioned>
@@ -3156,95 +2801,10 @@ function index() {
               </>
               : ''}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* Free Shipping Bar (FSB) Dashboard */}
-
-            {/* <Card sectioned>
-              <p style={{ fontWeight: 'bold', fontSize: '15px' }}>Free Shipping Bar (FSB) Dashboard</p>
-
-              <Grid columns={{ lg: 2, xl: 2 }} >
-                <Grid.Cell >
-                  <MediaCard title="Vimotia ‑ TikTok-like Shoppable Videos"
-                    description="Add TikTok-like Shoppable videos on your website, let your videos help you boost sales"
-                  >
-                    <img
-                      alt=""
-                      width="100%"
-                      height="70%"
-                      style={{ objectFit: 'cover', objectPosition: 'center', border: '1px solid white', borderRadius: '8px' }}
-                      src={vimotia_shopify}
-                    />
-                  </MediaCard>
-                </Grid.Cell>
-                <Grid.Cell >
-                  <MediaCard title="Translate My Store"
-                    description="Auto translate store to reach global market and increase sales (You can use it to translate Free Shipping" >
-                    <img
-                      alt=""
-                      width="100%"
-                      height="70%"
-                      style={{ objectFit: 'cover', objectPosition: 'center', border: '1px solid white', borderRadius: '8px' }}
-                      src={tms_shopify}
-                    />
-                  </MediaCard>
-                </Grid.Cell>
-                <Grid.Cell >
-                  <MediaCard title="Bulk Image Edit"
-                    description=" Image SEO optimization, alt text, rename, resize, watermark, compress" >
-                    <img
-                      alt=""
-                      width="100%"
-                      height="70%"
-                      style={{ objectFit: 'cover', objectPosition: 'center', border: '1px solid white', borderRadius: '8px' }}
-                      src={bie_shopify}
-                    />
-                  </MediaCard>
-                </Grid.Cell>
-                <Grid.Cell >
-                  <MediaCard title=" Bulk Product Edit"
-                    description="Save time and edit products in bulk, add & edit products via CSV/Excel import" >
-                    <img
-                      alt=""
-                      width="100%"
-                      height="70%"
-                      style={{ objectFit: 'cover', objectPosition: 'center', border: '1px solid white', borderRadius: '8px' }}
-                      src={bpe_shopify}
-                    />
-                  </MediaCard>
-                </Grid.Cell>
-
-              </Grid>
-
-            </Card> */}
-            {/* end Free Shipping Bar (FSB) Dashboard */}
-
-
-
-
-
-
-
-
-
-
-
           </Layout.Section>
         </Layout>
 
-      </Page >
+      </Page>
 
     </>
   )
