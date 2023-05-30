@@ -490,14 +490,14 @@ function index() {
 
   // radiobtn exclude page
   const [value1, setValue1] = useState('excludepage');
-  const [displayexcludePage, setDisplayExcludePage] = useState("display_exclude_all_page");
+  const [displayexcludePage, setDisplayExcludePage] = useState("excludepage");
   const handleChangeRadioBtnExclude = useCallback(
     (_, newValue) => {
       setValue1(newValue),
         console.log("newValue", newValue)
-
+      setDisplayExcludePage(newValue)
     },
-    (event) => setDisplayExcludePage(event.target.value),
+    // (event) => setDisplayExcludePage(event.target.value),
     []
   )
 
@@ -613,7 +613,7 @@ function index() {
       "display_on_page": displayonpage,
       "display_page_url": displayPageUrl,
       "display_page_keyword": displayPageKeywords,
-      "exclude_page": "excludepage",
+      "exclude_page": displayexcludePage,
       "exclude_page_url": displayexcludePageUrl,
       "exclude_page_keyword": displayexcludePageKeywords,
       "device_target": devicetarget,
@@ -710,6 +710,7 @@ function index() {
           setDelayBefore(res.data.data.delay_before_repeating)
           setTime(res.data.data.time_to_fade_in_out)
           setDisplayonPage(res.data.data.display_on_page)
+          setDisplayExcludePage(res.data.data.exclude_page)
           setDisplayPageUrl(res.data.data.display_page_url)
           setDisplayPageKeywords(res.data.data.display_page_keyword)
           setDeviceTarget(res.data.data.device_target)
@@ -767,7 +768,7 @@ function index() {
       "display_on_page": displayonpage,
       "display_page_url": displayPageUrl,
       "display_page_keyword": displayPageKeywords,
-      "exclude_page": "excludepage",
+      "exclude_page": displayexcludePage,
       "exclude_page_url": displayexcludePageUrl,
       "exclude_page_keyword": displayexcludePageKeywords,
       "device_target": devicetarget,
@@ -1130,7 +1131,7 @@ function index() {
                   {/* <Thumbnail
                     source={maxresdefault}
                     size="large"
-                    alt="Black choker necklace"
+                    alt="free shipping bar image"
                   /> */}
                 </MediaCard>
 
