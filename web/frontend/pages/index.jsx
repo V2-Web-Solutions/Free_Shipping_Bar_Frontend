@@ -482,6 +482,7 @@ function index() {
   const handleChangeRadioBtn = useCallback(
     (_, newValue) => {
       setValue(newValue),
+      console.log("setValue--",newValue)
         setDisplayonPage(newValue)
     },
     []
@@ -494,7 +495,7 @@ function index() {
   const handleChangeRadioBtnExclude = useCallback(
     (_, newValue) => {
       setValue1(newValue),
-        console.log("newValue", newValue)
+        console.log("setValue1--", newValue)
       setDisplayExcludePage(newValue)
     },
     // (event) => setDisplayExcludePage(event.target.value),
@@ -713,6 +714,8 @@ function index() {
           setDisplayExcludePage(res.data.data.exclude_page)
           setDisplayPageUrl(res.data.data.display_page_url)
           setDisplayPageKeywords(res.data.data.display_page_keyword)
+          setDisplayExcludePageUrl(res.data.data.exclude_page_url)
+          setDisplayExcludePageKeywords(res.data.data.exclude_page_keyword)
           setDeviceTarget(res.data.data.device_target)
           setProductTargeting(res.data.data.product_targeting)
           setCustomerTargeting(res.data.data.customer_targeting)
@@ -2687,9 +2690,9 @@ function index() {
                         {value1 ===
                           'display_exclude_urlpage' && (
                             <TextField
-                              id="display_page_url"
+                              id="exclude_page_url"
                               label="Page URL"
-                              name="display_page_url"
+                              name="exclude_page_url"
                               variant="outlined"
                               value={
                                 displayexcludePageUrl

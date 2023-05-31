@@ -1,4 +1,4 @@
-const ENV_LIVE_URL = "https://5b83-49-43-35-8.ngrok-free.app"
+const ENV_LIVE_URL = "https://7b92-49-43-33-83.ngrok-free.app"
 
 const shopName = myApp.shopName.replace(/^https?:\/\//, '');
 
@@ -129,85 +129,135 @@ async function updateFreeShippingBar() {
     // Check if the current page matches the specified conditions
     const currentPage = window.location.href;
     const displayOnPage = `${updateDataMessage.data.display_on_page}`; // Set to true to display on the home page
-    // const displayOnURL = currentPage.includes("your-url"); // Replace "your-url" with the desired URL
-    // const displayOnKeywords = currentPage.includes("keyword1") || currentPage.includes("keyword2"); // Replace "keyword1" and "keyword2" with desired keywords
-
-    // Set the display style based on the device width condition
-    // if (deviceWidth <= displayOnMobileWidth && (displayOnHomePage == "all" || isHomePage()) ) {
-    //   console.log("aaaa");
-    //   freeShippingBar.style.display = "block";
-    // } else {
-    //   console.log("bbbb");
-
-    //   freeShippingBar.style.display = "none";
-    // }
+    const displayExcludePage = `${updateDataMessage.data.exclude_page}`;
+    console.log("displayExcludePage", displayExcludePage);
+    
+    let specificURL = '';
+    let isSpecificURL = false;
+    let isPageWithKeywords = false;
+    let  currentURL = false;
+    let currentExcludeURL = false;
+    let specificExcludeURL = '';
+    let isSpecificExcludeURL = false;
+    let isPageWithExcludeKeywords = false;
 
     // Check if the current URL matches the specified URL
-    const specificURL = `${updateDataMessage.data.display_page_url}`; // Set the desired URL
-    const isSpecificURL = window.location.href === specificURL;
+    if (displayOnPage == "display_urlpage") {
+      specificURL = `${updateDataMessage.data.display_page_url}`; 
+      isSpecificURL = window.location.href === specificURL;
+      console.log("isSpecificURL", isSpecificURL);
+    } 
+    else if (displayOnPage == "display_keywords") {
 
-    const displayOnHome = `${updateDataMessage.data.display_on_page}`; // Set the desired URL
-    // const displayHome = window.location.href === displayOnHome;
+      const str = `${updateDataMessage.data.display_page_keyword}`;
 
-    const str = `${updateDataMessage.data.display_page_keyword}`;
+      // const str ='products,example2,example3,example4';
 
-    // const str ='products,example2,example3,example4';
+      // Check if the current page contains the specified keywords
+      const keywordList = str.split(","); // Set the desired keywords
+      isPageWithKeywords = checkIfPageWithKeywords(keywordList); // Function to check if the current page contains the specified keywords
+    }
+    else if (displayOnPage  == "home" ) {
+     currentURL = window.location.pathname == "/";
+    }
 
-    // Check if the current page contains the specified keywords
-    const keywordList = str.split(","); // Set the desired keywords
-    const isPageWithKeywords = checkIfPageWithKeywords(keywordList); // Function to check if the current page contains the specified keywords
-    
+    //exclude page 
+      if(displayExcludePage == "home_page"){
+        currentExcludeURL = window.location.pathname == "/";
+      }
+      else if(displayExcludePage == "display_exclude_urlpage"){
+        specificExcludeURL = `${updateDataMessage.data.exclude_page_url}`; 
+        console.log("specificExcludeURL--", specificExcludeURL);
+        isSpecificExcludeURL = window.location.href === specificExcludeURL;
+        console.log("isSpecificExcludeURL--", isSpecificExcludeURL);
+      }
+      else if(displayExcludePage == "display_exclude_keywords"){
+        const str1 = `${updateDataMessage.data.exclude_page_keyword}`;
+        const excludeKeywordList = str1.split(","); 
+        isPageWithExcludeKeywords = checkIfPageWithKeywords(excludeKeywordList); 
+        console.log("isPageWithExcludeKeywords", isPageWithExcludeKeywords);
+      }
+    //end exclude page 
 
      // Set the display style based on the conditions
-     const displayOnMobile = `${updateDataMessage.data.device_target}`; // Set to true to display on mobile devices
-     console.log("displayOnMobile---",displayOnMobile, displayOnHome);
+     const deviceTarget = `${updateDataMessage.data.device_target}`; // Set to true to display on mobile devices
+     console.log("deviceTarget---", deviceTarget);
     //  const displayOnDesktop = `${updateDataMessage.data.device_target}`; // Set to true to display on desktop devices
     //  console.log("displayOnDesktop---",displayOnDesktop);
 
 
-    //  if (
-    //   (displayOnMobile && isMobileDevice && deviceWidth <= displayOnMobileWidth) ||
-    //   (displayOnDesktop && !isMobileDevice && isHomePage) || isSpecificURL
-    // ) {
+  // Display on page condition
+    if(deviceTarget == "displaymobile"){
 
-    if(displayOnMobile == "displaymobile"){
-
-      if ((isPageWithKeywords || isSpecificURL || displayOnPage == "all" || displayOnHome == "home" ) && displayOnMobile && deviceWidth <= displayOnMobileWidth) {
-        
+      if ((isPageWithKeywords || isSpecificURL  || displayOnPage == "all" || currentURL) && deviceWidth <= displayOnMobileWidth) {
+        console.log("iff iff");
         freeShippingBar.style.display = "block";
       } else {
         console.log("iff else");
         freeShippingBar.style.display = "none";
         closeButton.style.display = "none";
       }
-    } else if(displayOnMobile == "displaydesktop") {
-      if ((isPageWithKeywords || isSpecificURL || displayOnPage == "all")  && displayOnDesktop && deviceWidth >= displayOnMobileWidth ) {
+
+    } else if(deviceTarget == "displaydesktop") {
+
+      if ((isPageWithKeywords || isSpecificURL || displayOnPage == "all" || currentURL)  && deviceWidth >= displayOnMobileWidth ) {
         console.log("elsee iff iff");
         freeShippingBar.style.display = "block";
-      }else {
+      } else {
         console.log("elsee iff  elsee");
         freeShippingBar.style.display = "none";
         closeButton.style.display = "none";
       }
-    } else {
-      if (isPageWithKeywords || isSpecificURL || displayOnPage == "all") {
+    } 
+    else {
+      if (isPageWithKeywords || isSpecificURL || displayOnPage == "all" || currentURL) {
         console.log("elsee iff");
         freeShippingBar.style.display = "block";
-      }else {
+      } else {
         console.log("elsee elsee");
         freeShippingBar.style.display = "none";
         closeButton.style.display = "none";
       }
     }
-    
+  //End Display on page condition
 
-     // Set the display style based on the page conditions
-    //  if(displayOnHomePage && isHomePage()){
-    //   freeShippingBar.style.display = "block";
-    //  }else {
-    //   freeShippingBar.style.display = "none";
-    // }
+  // Exclude page Condition
+    if(deviceTarget == "displaymobile" && deviceWidth <= displayOnMobileWidth){
 
+      if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
+        console.log("exclude iff");
+        freeShippingBar.style.display = "none";
+          closeButton.style.display = "none";
+      }
+      else{
+        console.log("exclude elsee");
+          freeShippingBar.style.display = "block";
+      }
+    } else if (deviceTarget == "displaydesktop" && deviceWidth >= displayOnMobileWidth)
+    {
+      if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
+        console.log("exclude elseeiff iff");
+        freeShippingBar.style.display = "none";
+          closeButton.style.display = "none";
+      }
+      else{
+        console.log("exclude elseeiff elsee");
+          freeShippingBar.style.display = "block";
+      }
+    } else {
+      if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
+        console.log("exclude elsee  iff");
+        freeShippingBar.style.display = "none";
+          closeButton.style.display = "none";
+      }
+      else{
+        console.log("exclude elsee elsee", isSpecificExcludeURL);
+          freeShippingBar.style.display = "block";
+      }
+    }
+   
+  // End Exclude page Condition
+   
   } catch (error) {
     console.log("Error:", error);
   }
@@ -218,9 +268,9 @@ async function updateFreeShippingBar() {
 window.addEventListener("resize", updateFreeShippingBar);
 
 // Function to check if the current page is the home page
-function isHomePage() {
-  return window.location.pathname === "/";
-}
+// function isHomePage() {
+//   return window.location.pathname === "/";
+// }
 
 // Function to check if the current page contains the specified keywords
 function checkIfPageWithKeywords(keywordList) {
