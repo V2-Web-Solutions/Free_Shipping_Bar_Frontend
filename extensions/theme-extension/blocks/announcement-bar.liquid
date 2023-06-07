@@ -1,18 +1,22 @@
 {{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+<script>
+ var myApp = {
+   shopName: '{{ shop.url }}',
+ };
+</script> 
+<script src="{{ 'announcement-bar.js' | asset_url }}" async></script> 
 
-<div class="v2-free-shipping-bar">
-  <p class="v2-free-shipping-text"></p>
+<div class="v2-free-shipping-main">
+  <div class="v2-free-shipping-container">
+    <div class="v2-free-shipping-bar">
+      <p class="v2-free-shipping-text"></p>
+    </div>
+  </div>
 </div>
 
- <script src="{{ 'announcement-bar.js' | asset_url }}" async></script> 
  
- <script>
-  var myApp = {
-    shopName: '{{ shop.url }}',
-  };
-</script> 
 
 {% schema %}
 {

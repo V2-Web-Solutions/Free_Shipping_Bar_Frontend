@@ -266,5 +266,9 @@ app.use('/*', shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
     .set('Content-Type', 'text/html')
     .send(readFileSync(join(STATIC_PATH, 'index.html')))
 })
-
 app.listen(PORT)
+
+// const port = 3000; // Replace with your desired port number
+// app.listen(port, () => {
+//   console.log(`Server is listening on port ${port}`);
+// });

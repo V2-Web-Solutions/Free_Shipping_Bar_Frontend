@@ -1,4 +1,4 @@
-const ENV_LIVE_URL = "https://7b92-49-43-33-83.ngrok-free.app"
+const ENV_LIVE_URL = "https://71d3-49-43-34-214.ngrok-free.app"
 
 const shopName = myApp.shopName.replace(/^https?:\/\//, '');
 
@@ -187,77 +187,158 @@ async function updateFreeShippingBar() {
 
 
   // Display on page condition
-    if(deviceTarget == "displaymobile"){
+    // if(deviceTarget == "displaymobile"){
 
-      if ((isPageWithKeywords || isSpecificURL  || displayOnPage == "all" || currentURL) && deviceWidth <= displayOnMobileWidth) {
-        console.log("iff iff");
-        freeShippingBar.style.display = "block";
-      } else {
-        console.log("iff else");
-        freeShippingBar.style.display = "none";
-        closeButton.style.display = "none";
-      }
+    //   if ((isPageWithKeywords || isSpecificURL  || displayOnPage == "all" || currentURL) && deviceWidth <= displayOnMobileWidth) {
+    //     console.log("iff iff");
+    //     freeShippingBar.style.display = "block";
+    //   } else {
+    //     console.log("iff else");
+    //     freeShippingBar.style.display = "none";
+    //     closeButton.style.display = "none";
+    //   }
 
-    } else if(deviceTarget == "displaydesktop") {
+    // } else if(deviceTarget == "displaydesktop") {
 
-      if ((isPageWithKeywords || isSpecificURL || displayOnPage == "all" || currentURL)  && deviceWidth >= displayOnMobileWidth ) {
-        console.log("elsee iff iff");
-        freeShippingBar.style.display = "block";
-      } else {
-        console.log("elsee iff  elsee");
-        freeShippingBar.style.display = "none";
-        closeButton.style.display = "none";
-      }
-    } 
-    else {
-      if (isPageWithKeywords || isSpecificURL || displayOnPage == "all" || currentURL) {
-        console.log("elsee iff");
-        freeShippingBar.style.display = "block";
-      } else {
-        console.log("elsee elsee");
-        freeShippingBar.style.display = "none";
-        closeButton.style.display = "none";
-      }
-    }
+    //   if ((isPageWithKeywords || isSpecificURL || displayOnPage == "all" || currentURL)  && deviceWidth >= displayOnMobileWidth ) {
+    //     console.log("elsee iff iff");
+    //     freeShippingBar.style.display = "block";
+    //   } else {
+    //     console.log("elsee iff  elsee");
+    //     freeShippingBar.style.display = "none";
+    //     closeButton.style.display = "none";
+    //   }
+    // } 
+    // else {
+    //   if (isPageWithKeywords || isSpecificURL || displayOnPage == "all" || currentURL) {
+    //     console.log("elsee iff");
+    //     freeShippingBar.style.display = "block";
+    //   } else {
+    //     console.log("elsee elsee");
+    //     freeShippingBar.style.display = "none";
+    //     closeButton.style.display = "none";
+    //   }
+    // }
   //End Display on page condition
 
   // Exclude page Condition
-    if(deviceTarget == "displaymobile" && deviceWidth <= displayOnMobileWidth){
+    // if(deviceTarget == "displaymobile" && deviceWidth <= displayOnMobileWidth){
 
-      if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
-        console.log("exclude iff");
-        freeShippingBar.style.display = "none";
-          closeButton.style.display = "none";
-      }
-      else{
-        console.log("exclude elsee");
-          freeShippingBar.style.display = "block";
-      }
-    } else if (deviceTarget == "displaydesktop" && deviceWidth >= displayOnMobileWidth)
-    {
-      if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
-        console.log("exclude elseeiff iff");
-        freeShippingBar.style.display = "none";
-          closeButton.style.display = "none";
-      }
-      else{
-        console.log("exclude elseeiff elsee");
-          freeShippingBar.style.display = "block";
-      }
-    } else {
-      if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
-        console.log("exclude elsee  iff");
-        freeShippingBar.style.display = "none";
-          closeButton.style.display = "none";
-      }
-      else{
-        console.log("exclude elsee elsee", isSpecificExcludeURL);
-          freeShippingBar.style.display = "block";
-      }
-    }
+    //   if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
+    //     console.log("exclude iff");
+    //     freeShippingBar.style.display = "none";
+    //       closeButton.style.display = "none";
+    //   }
+    //   else{
+    //     console.log("exclude elsee");
+    //       freeShippingBar.style.display = "block";
+    //   }
+    // } else if (deviceTarget == "displaydesktop" && deviceWidth >= displayOnMobileWidth)
+    // {
+    //   if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
+    //     console.log("exclude elseeiff iff");
+    //     freeShippingBar.style.display = "none";
+    //       closeButton.style.display = "none";
+    //   }
+    //   else{
+    //     console.log("exclude elseeiff elsee");
+    //       freeShippingBar.style.display = "block";
+    //   }
+    // } else {
+    //   if(isPageWithExcludeKeywords || isSpecificExcludeURL || currentExcludeURL){
+    //     console.log("exclude elsee  iff");
+    //     freeShippingBar.style.display = "none";
+    //       closeButton.style.display = "none";
+    //   }
+    //   else{
+    //     console.log("exclude elsee elsee", isSpecificExcludeURL);
+    //       freeShippingBar.style.display = "block";
+    //   }
+    // }
    
   // End Exclude page Condition
-   
+
+  // Displayonpage and Excludepage Condition
+  if (deviceTarget == "displaymobile") {
+    if (
+      (isPageWithKeywords ||
+        isSpecificURL ||
+        displayOnPage == "all" ||
+        currentURL) &&
+      deviceWidth <= displayOnMobileWidth
+    ) {
+      console.log("iff iff");
+      if (
+        isPageWithExcludeKeywords ||
+        isSpecificExcludeURL ||
+        currentExcludeURL
+      ) {
+        console.log("exclude iff");
+        freeShippingBar.style.display = "none";
+        closeButton.style.display = "none";
+      } else {
+        console.log("exclude elsee");
+        freeShippingBar.style.display = "block";
+      }
+    } else {
+      console.log("iff else");
+      freeShippingBar.style.display = "none";
+      closeButton.style.display = "none";
+    }
+  } else if (deviceTarget == "displaydesktop") {
+    if (
+      (isPageWithKeywords ||
+        isSpecificURL ||
+        displayOnPage == "all" ||
+        currentURL) &&
+      deviceWidth >= displayOnMobileWidth
+    ) {
+      console.log("elsee iff iff");
+      if (
+        isPageWithExcludeKeywords ||
+        isSpecificExcludeURL ||
+        currentExcludeURL
+      ) {
+        console.log("exclude elseeiff iff");
+        freeShippingBar.style.display = "none";
+        closeButton.style.display = "none";
+      } else {
+        console.log("exclude elseeiff elsee");
+        freeShippingBar.style.display = "block";
+      }
+    } else {
+      console.log("elsee iff  elsee");
+      freeShippingBar.style.display = "none";
+      closeButton.style.display = "none";
+    }
+  } else {
+    if (
+      isPageWithKeywords ||
+      isSpecificURL ||
+      displayOnPage == "all" ||
+      currentURL
+    ) {
+      console.log("elsee iff");
+      if (
+        isPageWithExcludeKeywords ||
+        isSpecificExcludeURL ||
+        currentExcludeURL
+      ) {
+        console.log("exclude elsee  iff");
+        freeShippingBar.style.display = "none";
+        closeButton.style.display = "none";
+      } else {
+        console.log("exclude elsee elsee", isSpecificExcludeURL);
+        freeShippingBar.style.display = "block";
+      }
+    } else {
+      console.log("elsee elsee");
+      freeShippingBar.style.display = "none";
+      closeButton.style.display = "none";
+    }
+  }
+  // End Displayonpage and Excludepage Condition
+
   } catch (error) {
     console.log("Error:", error);
   }

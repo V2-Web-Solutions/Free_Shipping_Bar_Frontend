@@ -490,8 +490,8 @@ function index() {
 
 
   // radiobtn exclude page
-  const [value1, setValue1] = useState('excludepage');
-  const [displayexcludePage, setDisplayExcludePage] = useState("excludepage");
+  const [value1, setValue1] = useState('notexclude');
+  const [displayexcludePage, setDisplayExcludePage] = useState("notexclude");
   const handleChangeRadioBtnExclude = useCallback(
     (_, newValue) => {
       setValue1(newValue),
@@ -2655,7 +2655,7 @@ function index() {
                           label="Do NOT exclude any page"
                           checked={
                             value1 ===
-                            'excludepage'
+                            'notexclude'
                           }
                           id="notexclude"
                           name="notexclude"
