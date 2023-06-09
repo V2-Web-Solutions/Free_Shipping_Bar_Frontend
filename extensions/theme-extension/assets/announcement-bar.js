@@ -1,4 +1,4 @@
-const ENV_LIVE_URL = "https://71d3-49-43-34-214.ngrok-free.app"
+const ENV_LIVE_URL = "https://c911-49-43-35-41.ngrok-free.app"
 
 const shopName = myApp.shopName.replace(/^https?:\/\//, '');
 
@@ -73,7 +73,6 @@ async function updateFreeShippingBar() {
     freeShippingBar.style.fontFamily = `${updateDataMessage.data.font_family}`;
     freeShippingBar.style.fontSize = `${updateDataMessage.data.font_size}px`;
     
-   
     const disappearAfter = `${updateDataMessage.data.disappear_after}`;
 
     if(disappearAfter != 0) {
@@ -344,6 +343,20 @@ async function updateFreeShippingBar() {
   }
   
 }
+
+// var freeShippingBar = document.querySelector('.v2-free-shipping-bar');
+// var freeShippingBarTop = freeShippingBar.offsetTop;
+
+// window.addEventListener('scroll', function() {
+//   if (window.pageYOffset > freeShippingBarTop) {
+//     freeShippingBar.classList.add('sticky');
+//   } else {
+//     freeShippingBar.classList.remove('sticky');
+//   }
+// });
+
+
+
 
 // Add event listener for window resize to update the free shipping bar based on device width
 window.addEventListener("resize", updateFreeShippingBar);

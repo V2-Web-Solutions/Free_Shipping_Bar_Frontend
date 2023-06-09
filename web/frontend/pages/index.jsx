@@ -503,13 +503,13 @@ function index() {
   )
 
   // radiobtn Select a Display Position:
-  const [value2, setValue2] = useState('restofthepage');
-  const [DisplayPosition, setDisplayPosition] = useState('display_position');
-  var handleChangeRadioBtnDisplayPosition = useCallback(
-    (_, newValue) => setValue2(newValue),
-    (event) => setDisplayPosition(event.target.value),
-    []
-  );
+  // const [value2, setValue2] = useState('restofthepage');
+  // const [DisplayPosition, setDisplayPosition] = useState('display_position');
+  // var handleChangeRadioBtnDisplayPosition = useCallback(
+  //   (_, newValue) => setValue2(newValue),
+  //   (event) => setDisplayPosition(event.target.value),
+  //   []
+  // );
 
   // radiobtn device target
   const [value3, setValue3] = useState('displayboth')
@@ -595,8 +595,8 @@ function index() {
       "add_link_to_bar": AddLinktotheBar,
       "link_URL": linkUrl,
       "include_close_button": IncludeCloseButton,
-      "add_progress_bar": AddaProgressBar,
-      "display_position": DisplayPosition,
+      // "add_progress_bar": AddaProgressBar,
+      // "display_position": DisplayPosition,
       "currency": selectcurrency,
       "currency_symbol": selectcurrency,
       "currency_symbol_position": selectcurrencysymbolposition,
@@ -695,7 +695,7 @@ function index() {
           setAddLinktotheBar(res.data.data.add_link_to_bar)
           setLinkUrl(res.data.data.link_URL)
           setIncludeCloseButton(res.data.data.include_close_button);
-          setDisplayPosition(res.data.data.display_position);
+          // setDisplayPosition(res.data.data.display_position);
           setSelectcurrency(res.data.data.currency)
           setSelectcurrency(res.data.data.currency_symbol)
           setSelectCurrencySymbolPosition(res.data.data.currency_symbol_position)
@@ -752,8 +752,8 @@ function index() {
       "add_link_to_bar": AddLinktotheBar,
       "link_URL": linkUrl,
       "include_close_button": IncludeCloseButton,
-      "add_progress_bar": AddaProgressBar,
-      "display_position": DisplayPosition,
+      // "add_progress_bar": AddaProgressBar,
+      // "display_position": DisplayPosition,
       "currency": selectcurrency,
       "currency_symbol": selectcurrency,
       "currency_symbol_position": selectcurrencysymbolposition,
@@ -1455,7 +1455,7 @@ function index() {
                       </div> */}
 
                       {/* <div style={{ marginTop: '20px' }}> */}
-                      <Select
+                      {/* <Select
                         options={OptionsAddaProgressBar}
                         onChange={handleSelectAddaProgressBar}
                         value={AddaProgressBar}
@@ -1464,8 +1464,8 @@ function index() {
                             Add a progress bar below the text.
                           </span>
                         }
-                      />
-                      <Stack>
+                      /> */}
+                      {/* <Stack>
                         <p>Select a Display Position:</p>
                       </Stack>
                       <div
@@ -1547,7 +1547,8 @@ function index() {
                             }
                           />
                         </Stack>
-                      </div>
+                      </div> */}
+
                       {/* <ChoiceList
                         title="Select a Display Position:"
                         choices={[
