@@ -35,9 +35,9 @@ app.use(cors(corsOptions))
 
 app.use(bodyParser.json())
 
-app.use('/api/a1', (req,res) => {
-  return res.json("Api is working");
-})
+app.get('/', (req, res) => {
+  res.send("Api is working");
+});
 
 app.use('/api', shippingRoute)
 app.use('/api', currencyRoute)
