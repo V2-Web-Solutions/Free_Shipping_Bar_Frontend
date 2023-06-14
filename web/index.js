@@ -36,7 +36,11 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-  res.send("Api is working");
+  return res.status(200).json({
+    success: 1,
+    error: 0,
+    message: "Get Successfully ..",
+  });
 });
 
 app.use('/api', shippingRoute)
