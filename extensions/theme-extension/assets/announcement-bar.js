@@ -1,4 +1,4 @@
-const ENV_LIVE_URL = "https://cerulean-profiterole-96b91e.netlify.app/"
+const ENV_LIVE_URL = "https://cerulean-profiterole-96b91e.netlify.app"
 
 const shopName = myApp.shopName.replace(/^https?:\/\//, '');
 

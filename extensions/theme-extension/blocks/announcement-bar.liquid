@@ -1,6 +1,24 @@
 {{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+{% comment %}{% assign customer_interaction = true %}
+
+{% if customer_interaction %}
+  <script>
+    // Import and execute JavaScript code when required
+  </script>
+{% else %}
+  <script src="{{ 'jquery.min.js' | asset_url }}" async></script>
+{% endif %}
+
+<script type="text/javascript" src={{ 'jquery.min.js' | asset_url }} defer></script>
+
+{% endcomment %}
+
+{{ 'jquery.min.js' | asset_url }}
+
+
+
+{% comment %}<script src="{{ 'jquery.min.js' | asset_url }}" async></script>{% endcomment %}
 <script>
  var myApp = {
    shopName: '{{ shop.url }}',
